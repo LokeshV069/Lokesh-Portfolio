@@ -62,68 +62,42 @@ export default function Projects({ onOpenCaseStudy }) {
   return (
     <section
       id="projects"
-      className="relative min-h-screen w-full bg-black text-black overflow-hidden py-16 lg:py-24"
+      className="relative min-h-screen w-full bg-black text-white overflow-hidden py-16 lg:py-24"
       aria-label="Featured Works and Systems"
     >
-      {/* 1. Dramatic Diagonal Split Background */}
-      {/* Left White / Light Gray Diagonal Shape */}
+      {/* 1. Photorealistic Cosmic Architecture & Mountain Backdrop */}
       <div
-        className="absolute inset-0 z-0 pointer-events-none hidden lg:block"
+        className="absolute inset-0 z-0 pointer-events-none overflow-hidden"
         aria-hidden="true"
       >
         <div
-          className="absolute inset-0 bg-[#F5F5F7] shadow-[25px_0_60px_rgba(0,0,0,0.65)] relative overflow-hidden"
+          className="absolute inset-0 bg-cover bg-center opacity-85"
           style={{
-            clipPath: 'polygon(0 0, 56.6% 0, 45.7% 100%, 0 100%)'
-          }}
-        >
-          {/* Subtle architectural background grid */}
-          <div className="absolute inset-0 bg-tech-grid opacity-15" />
-
-          {/* Decorative circular guide line watermarks matching reference mockup */}
-          <div className="absolute -left-28 top-[24%] w-[560px] h-[560px] rounded-full border border-black/[0.04] pointer-events-none" />
-          <div className="absolute -left-44 top-[18%] w-[740px] h-[740px] rounded-full border border-black/[0.025] pointer-events-none" />
-        </div>
-      </div>
-
-      {/* For mobile / tablet: light background for readability */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#F5F5F7] via-[#F5F5F7] to-black lg:hidden pointer-events-none" />
-
-      {/* Black & White Low-Poly Mountain Background (Right & Bottom behind cards) */}
-      <div
-        className="absolute inset-0 z-0 pointer-events-none hidden lg:block overflow-hidden"
-        aria-hidden="true"
-      >
-        <div
-          className="absolute right-0 bottom-0 w-[62%] h-[600px] bg-no-repeat bg-right-bottom bg-cover opacity-75 pointer-events-none"
-          style={{
-            backgroundImage: "url('/mountain-bg-dark.jpg')",
-            WebkitMaskImage: 'linear-gradient(to top, black 55%, transparent 100%)',
-            maskImage: 'linear-gradient(to top, black 55%, transparent 100%)'
+            backgroundImage: "url('/projects/project_celestial_bg.png')"
           }}
         />
+        {/* Subtle atmospheric vignette for high card readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/75 pointer-events-none" />
       </div>
 
-      {/* 2. 3D Celestial Geodesic Sphere Scene (Right Dark Side) */}
-      <div className="absolute top-6 right-0 w-full lg:w-[48%] h-[420px] lg:h-[480px] z-0 pointer-events-none hidden lg:block">
-        <ProjectsCelestialScene />
+      {/* 2. Interactive 3D Three.js Animated Celestial Scene (Arc, Orbiting Planet, Moons, Parallax) */}
+      <ProjectsCelestialScene />
 
-        {/* Floating Right Stats Box: 05+ Projects, 03+ Domains, 100% Passion */}
-        <div className="absolute bottom-6 right-10 xl:right-16 z-10 flex flex-col items-end pointer-events-auto">
-          <div className="w-14 h-[1.5px] bg-white/40 mb-3.5 mr-auto" />
-          <div className="flex items-center gap-7 xl:gap-11">
-            <div className="text-left">
-              <div className="text-2xl xl:text-3xl font-extrabold text-white tracking-tight">05+</div>
-              <div className="text-[11px] font-mono text-neutral-400 mt-0.5">Projects</div>
-            </div>
-            <div className="text-left">
-              <div className="text-2xl xl:text-3xl font-extrabold text-white tracking-tight">03+</div>
-              <div className="text-[11px] font-mono text-neutral-400 mt-0.5">Domains</div>
-            </div>
-            <div className="text-left">
-              <div className="text-2xl xl:text-3xl font-extrabold text-white tracking-tight">100%</div>
-              <div className="text-[11px] font-mono text-neutral-400 mt-0.5">Passion</div>
-            </div>
+      {/* Floating Right Stats Box: 05+ Projects, 03+ Domains, 100% Passion */}
+      <div className="hidden lg:flex absolute top-28 right-10 xl:right-16 z-10 flex-col items-end pointer-events-auto">
+        <div className="w-14 h-[1.5px] bg-white/40 mb-3.5 mr-auto" />
+        <div className="flex items-center gap-7 xl:gap-11">
+          <div className="text-left">
+            <div className="text-2xl xl:text-3xl font-extrabold text-white tracking-tight">05+</div>
+            <div className="text-[11px] font-mono text-neutral-400 mt-0.5">Projects</div>
+          </div>
+          <div className="text-left">
+            <div className="text-2xl xl:text-3xl font-extrabold text-white tracking-tight">03+</div>
+            <div className="text-[11px] font-mono text-neutral-400 mt-0.5">Domains</div>
+          </div>
+          <div className="text-left">
+            <div className="text-2xl xl:text-3xl font-extrabold text-white tracking-tight">100%</div>
+            <div className="text-[11px] font-mono text-neutral-400 mt-0.5">Passion</div>
           </div>
         </div>
       </div>
@@ -131,9 +105,9 @@ export default function Projects({ onOpenCaseStudy }) {
       {/* 3. Top Architectural Meta Header */}
       <div className="relative z-10 max-w-[1550px] mx-auto px-6 sm:px-10 lg:px-14 mb-8">
         <div className="flex items-center justify-between font-mono text-[10px] sm:text-[11px] tracking-wider">
-          <div className="text-neutral-700">
+          <div className="text-neutral-400">
             <span>LAT: 11.0168° // LON: 76.9533°</span>
-            <div className="text-neutral-900 font-bold mt-0.5">// PROJECTS.EXE</div>
+            <div className="text-white font-bold mt-0.5">// PROJECTS.EXE</div>
           </div>
 
           <div className="text-right hidden sm:block text-neutral-300">
@@ -148,18 +122,15 @@ export default function Projects({ onOpenCaseStudy }) {
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
           
           {/* Left Vertical Index Track (Desktop only) */}
-          <div className="hidden 2xl:flex flex-col gap-6 pt-4 shrink-0 text-neutral-500 font-mono text-xs select-none relative pl-2">
-            <div className="absolute left-0 top-3 bottom-2 w-[1px] bg-neutral-300" />
-            <div className="flex items-center gap-2 font-bold text-black relative">
-              <span className="w-4 h-[1.5px] bg-black inline-block -ml-2" />
-              <span className="w-2 h-2 rounded-full bg-black inline-block -ml-2.5" />
+          <div className="hidden 2xl:flex flex-col gap-6 pt-4 shrink-0 text-neutral-400 font-mono text-xs select-none relative pl-2">
+            <div className="absolute left-0 top-3 bottom-2 w-[1px] bg-white/20" />
+            <div className="flex items-center gap-2 font-bold text-white relative">
+              <span className="w-4 h-[1.5px] bg-white inline-block -ml-2" />
+              <span className="w-2 h-2 rounded-full bg-white inline-block -ml-2.5 shadow-[0_0_8px_white]" />
               <span className="pl-1">01 PROJECTS</span>
             </div>
-            <div className="pl-4 text-neutral-400 hover:text-black transition-colors cursor-pointer">
-              <span>02 EXPERIENCE</span>
-            </div>
-            <div className="pl-4 text-neutral-400 hover:text-black transition-colors cursor-pointer">
-              <span>03 ACHIEVEMENTS</span>
+            <div className="pl-4 text-neutral-400 hover:text-white transition-colors cursor-pointer">
+              <span>02 ACHIEVEMENTS</span>
             </div>
           </div>
 
@@ -168,21 +139,21 @@ export default function Projects({ onOpenCaseStudy }) {
             
             {/* Header Area */}
             <div className="max-w-3xl mb-8">
-              <div className="font-mono text-xs tracking-widest text-neutral-700 font-semibold mb-1">
+              <div className="font-mono text-xs tracking-widest text-accent-cyan font-semibold mb-1">
                 // MY WORK
               </div>
 
               {/* Title with 5 Diagonal Slashes */}
               <div className="flex items-baseline gap-3">
-                <h2 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tighter text-black uppercase">
+                <h2 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tighter text-white uppercase">
                   PROJECTS
                 </h2>
-                <span className="text-3xl sm:text-5xl lg:text-6xl font-light text-neutral-300 tracking-tight select-none">
+                <span className="text-3xl sm:text-5xl lg:text-6xl font-light text-neutral-600 tracking-tight select-none">
                   /////
                 </span>
               </div>
 
-              <p className="text-sm sm:text-base text-neutral-600 font-normal mt-3 max-w-2xl leading-relaxed">
+              <p className="text-sm sm:text-base text-neutral-300 font-normal mt-3 max-w-2xl leading-relaxed">
                 A collection of interactive, immersive and impactful projects built with technology, design and creativity.
               </p>
             </div>
@@ -197,8 +168,8 @@ export default function Projects({ onOpenCaseStudy }) {
                     onClick={() => handleFilterChange(filter)}
                     className={`px-4 py-1.5 rounded-full font-mono text-[11px] sm:text-xs font-semibold tracking-wider transition-all duration-200 ${
                       isActive
-                        ? 'bg-black text-white shadow-md scale-102'
-                        : 'bg-white/80 hover:bg-white text-neutral-700 hover:text-black border border-neutral-300/80 shadow-xs'
+                        ? 'bg-white text-black font-bold shadow-[0_0_20px_rgba(255,255,255,0.35)] scale-102'
+                        : 'bg-black/60 hover:bg-black/80 text-neutral-300 hover:text-white border border-white/20 hover:border-white/40 backdrop-blur-md'
                     }`}
                   >
                     {filter}
@@ -223,11 +194,11 @@ export default function Projects({ onOpenCaseStudy }) {
       </div>
 
       {/* 5. Bottom Architectural Meta Footer */}
-      <div className="relative z-10 max-w-[1550px] mx-auto px-6 sm:px-10 lg:px-14 mt-16 pt-6 border-t border-neutral-300/30 lg:border-white/10 flex items-center justify-between font-mono text-[10px] tracking-widest">
-        <div className="text-neutral-900 font-bold">
+      <div className="relative z-10 max-w-[1550px] mx-auto px-6 sm:px-10 lg:px-14 mt-16 pt-6 border-t border-white/15 flex items-center justify-between font-mono text-[10px] tracking-widest">
+        <div className="text-white/80 font-bold">
           AI / XR / DESIGN / DEVELOPMENT
         </div>
-        <div className="flex items-center gap-2 text-neutral-300">
+        <div className="flex items-center gap-2 text-neutral-400 hover:text-white transition-colors">
           <span>SCROLL TO EXPLORE</span>
           <span>↓</span>
         </div>
