@@ -3,7 +3,6 @@ import {
   Mail,
   Phone,
   MapPin,
-  Calendar,
   User,
   FileText,
   ChevronDown,
@@ -13,7 +12,9 @@ import {
   Box,
   Check,
   Copy,
-  Quote
+  Quote,
+  AlertCircle,
+  Loader2
 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, XIcon, InstagramIcon } from '../components/Icons';
 import ContactCelestialScene from '../three/ContactCelestialScene';
@@ -28,6 +29,7 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submissionStatus, setSubmissionStatus] = useState('idle'); // 'idle' | 'submitting' | 'success' | 'error'
   const [copiedKey, setCopiedKey] = useState(null);
   const [currentTimeIST, setCurrentTimeIST] = useState('');
 
@@ -45,7 +47,7 @@ export default function Contact() {
           hour12: true
         }).format(new Date());
         setCurrentTimeIST(timeStr);
-      } catch (err) {
+      } catch {
         setCurrentTimeIST('03:45 PM');
       }
     };
@@ -59,7 +61,7 @@ export default function Contact() {
     e.stopPropagation();
     try {
       navigator.clipboard?.writeText(text);
-    } catch (err) {
+    } catch {
       // Fallback
       const textArea = document.createElement('textarea');
       textArea.value = text;
@@ -81,27 +83,83 @@ export default function Contact() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
     audioEngine.playHoverTone();
     setIsSubmitting(true);
+    setSubmissionStatus('submitting');
 
-    setTimeout(() => {
+    try {
+      const web3Key = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+      let isSuccess = false;
+
+      if (web3Key && web3Key.trim() !== '' && web3Key !== 'your_web3forms_access_key_here') {
+        // Mode 1: Web3Forms delivery
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          },
+          body: JSON.stringify({
+            access_key: web3Key,
+            name: formData.name,
+            email: formData.email,
+            subject: `[Portfolio Direct] ${formData.subject} from ${formData.name}`,
+            message: formData.message,
+            from_name: `${formData.name} (Portfolio Inquiry)`,
+            replyto: formData.email
+          })
+        });
+        const result = await res.json();
+        isSuccess = res.ok && result.success;
+      } else {
+        // Mode 2: FormSubmit.co direct delivery to lokesh.valmeeki@gmail.com
+        const res = await fetch(`https://formsubmit.co/ajax/${directEmail}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            subject: `[Portfolio Direct] ${formData.subject} from ${formData.name}`,
+            message: formData.message,
+            _subject: `New Transmission from ${formData.name} (${formData.subject})`,
+            _template: 'table',
+            _captcha: 'false'
+          })
+        });
+        const result = await res.json();
+        isSuccess = res.ok && (result.success === 'true' || result.success === true);
+      }
+
+      if (isSuccess) {
+        setIsSubmitted(true);
+        setSubmissionStatus('success');
+        audioEngine.playClickChime();
+        setFormData({
+          name: '',
+          email: '',
+          subject: 'Project Collaboration',
+          message: ''
+        });
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setSubmissionStatus('idle');
+        }, 7000);
+      } else {
+        throw new Error('Transmission was not acknowledged by delivery gateway');
+      }
+    } catch (error) {
+      console.error('Contact form submission error:', error);
+      setSubmissionStatus('error');
+    } finally {
       setIsSubmitting(false);
-      setIsSubmitted(true);
-      audioEngine.playClickChime();
-
-      // Trigger client mail dispatch with encoded fields
-      const mailSubject = encodeURIComponent(`[${formData.subject}] from ${formData.name}`);
-      const mailBody = encodeURIComponent(
-        `Name: ${formData.name}\nEmail: ${formData.email}\nSubject: ${formData.subject}\n\nMessage:\n${formData.message}`
-      );
-      window.location.href = `mailto:${directEmail}?subject=${mailSubject}&body=${mailBody}`;
-
-      setTimeout(() => setIsSubmitted(false), 5000);
-    }, 700);
+    }
   };
 
   return (
@@ -533,6 +591,41 @@ export default function Contact() {
                   </span>
                 </div>
 
+                {/* Anti-spam honeypot (hidden from human users) */}
+                <input type="text" name="_honey" className="hidden" tabIndex="-1" autoComplete="off" />
+
+                {/* Status Feedback Alerts */}
+                {submissionStatus === 'success' && (
+                  <div className="p-4 rounded-xl bg-emerald-950/60 border border-emerald-500/50 backdrop-blur-md flex items-start gap-3 text-emerald-200">
+                    <Check className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
+                    <div className="space-y-0.5">
+                      <div className="font-mono text-xs font-bold uppercase tracking-wider text-emerald-300">
+                        TRANSMISSION RECEIVED // DISPATCH CONFIRMED
+                      </div>
+                      <p className="text-xs text-emerald-200/80 font-sans leading-relaxed">
+                        Your message was forwarded directly to Lokesh's inbox. Expect a response within 24 hours.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {submissionStatus === 'error' && (
+                  <div className="p-4 rounded-xl bg-red-950/50 border border-red-500/50 backdrop-blur-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-red-200">
+                    <div className="flex items-start gap-2.5">
+                      <AlertCircle className="w-4 h-4 text-red-400 mt-0.5 shrink-0" />
+                      <span className="font-mono text-xs">
+                        Direct transmission timed out. Launch email client instead:
+                      </span>
+                    </div>
+                    <a
+                      href={`mailto:${directEmail}?subject=${encodeURIComponent(`[${formData.subject}] from ${formData.name}`)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nSubject: ${formData.subject}\n\nMessage:\n${formData.message}`)}`}
+                      className="px-3.5 py-1.5 rounded-full bg-red-500 hover:bg-red-400 text-black font-mono text-xs font-bold tracking-wider uppercase transition-colors shrink-0"
+                    >
+                      Open Email App →
+                    </a>
+                  </div>
+                )}
+
                 {/* Submit Action Button */}
                 <button
                   type="submit"
@@ -540,10 +633,13 @@ export default function Contact() {
                   className="w-full py-4 rounded-full bg-white text-black font-mono font-bold text-xs sm:text-sm tracking-widest uppercase hover:bg-neutral-100 hover:scale-[1.01] active:scale-[0.99] shadow-[0_0_30px_rgba(255,255,255,0.3)] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
                 >
                   {isSubmitting ? (
-                    <span>TRANSMITTING...</span>
+                    <span className="flex items-center gap-2 text-black">
+                      <Loader2 className="w-4 h-4 animate-spin text-black" />
+                      <span>TRANSMITTING...</span>
+                    </span>
                   ) : isSubmitted ? (
-                    <span className="flex items-center gap-2 text-emerald-700">
-                      <Check className="w-4 h-4" /> MESSAGE DISPATCHED
+                    <span className="flex items-center gap-2 text-emerald-800 font-bold">
+                      <Check className="w-4 h-4" /> TRANSMISSION SENT
                     </span>
                   ) : (
                     <>
