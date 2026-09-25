@@ -102,7 +102,7 @@ export default function Navbar({ onOpenResume, soundEnabled, setSoundEnabled, on
           </a>
 
           {/* CENTER: Navigation Links (HOME, ABOUT, PROJECTS, 3D LAB, SKILLS, CONTACT from Image 1) */}
-          <div className="hidden lg:flex items-center gap-2 xl:gap-4">
+          <div className="hidden lg:flex items-center gap-1.5 xl:gap-2.5 p-1 rounded-full bg-white/[0.04] border border-white/10">
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
               return (
@@ -114,10 +114,10 @@ export default function Navbar({ onOpenResume, soundEnabled, setSoundEnabled, on
                     handleNavClick(item.href);
                   }}
                   onMouseEnter={() => audioEngine.playHoverTone()}
-                  className={`px-2.5 py-1 rounded-md font-mono text-[11px] tracking-wider transition-colors duration-200 ${
+                  className={`relative px-3 py-1 rounded-full font-mono text-[11px] tracking-wider transition-all duration-300 ${
                     isActive
-                      ? 'text-white font-bold'
-                      : 'text-neutral-400 hover:text-white'
+                      ? 'text-white font-bold bg-white/15 shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-white/20'
+                      : 'text-neutral-400 hover:text-white hover:bg-white/5 border border-transparent'
                   }`}
                 >
                   {item.label}

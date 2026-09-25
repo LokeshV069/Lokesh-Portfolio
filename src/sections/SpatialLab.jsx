@@ -141,7 +141,7 @@ export default function SpatialLab() {
       <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 relative z-10 space-y-6">
         
         {/* TOP BAR OF 3D PRIMITIVES MODULE (Matching Screenshot) */}
-        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-xl reveal-init reveal-slide-down">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-xl reveal-init reveal-mask">
           
           {/* Module Logo & Title */}
           <div className="flex items-center gap-3.5 self-start md:self-auto">

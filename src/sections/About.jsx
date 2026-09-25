@@ -19,7 +19,7 @@ export default function About() {
         <div className="relative bg-[#F4F4F6] text-neutral-900 p-8 sm:p-12 lg:p-14 xl:p-16 flex flex-col justify-between overflow-hidden border-b lg:border-b-0 lg:border-r border-black/10">
           
           {/* Top Row: Floating 3D Icosahedron & Profile Typography Side-by-Side */}
-          <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 lg:gap-8 relative z-10 reveal-init reveal-slide-left">
+          <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 lg:gap-8 relative z-10 reveal-init reveal-mask">
             
             {/* 3D Faceted Icosahedron Sphere — Dedicated Left Slot (Zero overlap with text) */}
             <div 
@@ -122,7 +122,7 @@ export default function About() {
           </div>
 
           {/* Top: Bio Narrative Paragraphs */}
-          <div className="relative z-10 space-y-5 text-sm sm:text-[15px] lg:text-base text-neutral-300 leading-relaxed font-sans max-w-xl reveal-init reveal-slide-right">
+          <div className="relative z-10 space-y-5 text-sm sm:text-[15px] lg:text-base text-neutral-300 leading-relaxed font-sans max-w-xl reveal-init reveal-mask">
             <p>
               I am a <strong className="text-white font-semibold">Computer Science and Design</strong> engineer focused on building interactive experiences across XR, AI, automation and modern web technologies.
             </p>

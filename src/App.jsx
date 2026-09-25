@@ -11,7 +11,6 @@ import Contact from './sections/Contact';
 import Footer from './sections/Footer';
 import ProjectModal from './components/ProjectModal';
 import ResumeModal from './components/ResumeModal';
-import PageTransition from './components/PageTransition';
 import ScrollProgress from './components/ScrollProgress';
 import { useScrollReveal } from './hooks/useScrollReveal';
 import { audioEngine } from './utils/audioEngine';
@@ -25,46 +24,37 @@ export default function App() {
   // Initialize master-level scroll reveal observer
   useScrollReveal();
 
-  // Page Transition Warp State
-  const [transitionState, setTransitionState] = useState({
-    active: false,
-    label: '',
-    num: ''
-  });
-
-  const sectionMeta = {
-    '#home': { label: 'HOME', num: '01' },
-    '#about': { label: 'ABOUT ME', num: '02' },
-    '#projects': { label: 'PROJECTS', num: '03' },
-    '#lab': { label: '3D PRIMITIVES LAB', num: '04' },
-    '#skills': { label: 'SKILLS & TECH', num: '05' },
-    '#contact': { label: 'DIRECT TRANSMISSION', num: '06' }
-  };
-
+  // Smooth Navigation with Shared Element Mask Reveal
   const handleNavigate = (href) => {
-    const meta = sectionMeta[href] || { label: href.replace('#', '').toUpperCase(), num: '00' };
-
     audioEngine.playClickChime();
 
-    // Trigger cinematic warp shutter
-    setTransitionState({
-      active: true,
-      label: meta.label,
-      num: meta.num
-    });
+    if (href === '#home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
 
-    // In 240ms (when shutter panels are closed at center), scroll seamlessly
-    setTimeout(() => {
-      const target = document.querySelector(href);
-      if (target) {
-        target.scrollIntoView({ behavior: 'auto' });
-      }
-    }, 240);
+    const target = document.querySelector(href);
+    if (target) {
+      // Calculate smooth target scroll position with offset for floating navbar
+      const navOffset = 70;
+      const targetY = target.getBoundingClientRect().top + window.pageYOffset - navOffset;
 
-    // End transition in 620ms
-    setTimeout(() => {
-      setTransitionState({ active: false, label: '', num: '' });
-    }, 620);
+      window.scrollTo({
+        top: Math.max(0, targetY),
+        behavior: 'smooth'
+      });
+
+      // Trigger shared element mask sweep animation on target section
+      target.classList.remove('section-mask-sweep');
+      void target.offsetWidth; // Force reflow to re-trigger animation
+      target.classList.add('section-mask-sweep');
+
+      // Ensure all reveal elements in the destination section activate immediately
+      const hiddenElements = target.querySelectorAll('.reveal-init:not(.is-revealed)');
+      hiddenElements.forEach((el) => {
+        el.classList.add('is-revealed');
+      });
+    }
   };
 
   return (
@@ -75,14 +65,7 @@ export default function App() {
       {/* 2. Floating Section HUD */}
       <ScrollProgress onNavigate={handleNavigate} />
 
-      {/* 3. Cinematic Warp Shutter Transition Overlay */}
-      <PageTransition
-        isTransitioning={transitionState.active}
-        targetLabel={transitionState.label}
-        targetNum={transitionState.num}
-      />
-
-      {/* 4. Global Fixed Floating Pill Navigation */}
+      {/* 3. Global Fixed Floating Pill Navigation */}
       <Navbar
         onOpenResume={() => setResumeOpen(true)}
         soundEnabled={soundEnabled}

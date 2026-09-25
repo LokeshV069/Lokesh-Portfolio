@@ -135,7 +135,7 @@ export default function Projects({ onOpenCaseStudy }) {
           <div className="flex-1 w-full">
             
             {/* Header Area */}
-            <div className="max-w-3xl mb-8 reveal-init reveal-slide-up">
+            <div className="max-w-3xl mb-8 reveal-init reveal-mask">
               <div className="font-mono text-xs tracking-widest text-accent-cyan font-semibold mb-1">
                 // MY WORK
               </div>
