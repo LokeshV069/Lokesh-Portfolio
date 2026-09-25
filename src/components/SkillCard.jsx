@@ -1,53 +1,97 @@
 import React from 'react';
-import { Check } from 'lucide-react';
+import { ArrowUpRight, Check } from 'lucide-react';
+import {
+  PythonLogo,
+  JavaLogo,
+  UnityLogo,
+  VuforiaLogo,
+  HandTrackingLogo,
+  LLMRAGLogo,
+  N8nLogo,
+  ReactLogo,
+  FigmaLogo
+} from './TechLogos';
 import { audioEngine } from '../utils/audioEngine';
 
+const LOGO_MAP = {
+  python: PythonLogo,
+  java: JavaLogo,
+  unity: UnityLogo,
+  vuforia: VuforiaLogo,
+  handTracking: HandTrackingLogo,
+  llmRag: LLMRAGLogo,
+  n8n: N8nLogo,
+  react: ReactLogo,
+  figma: FigmaLogo,
+};
+
 export default function SkillCard({ skill }) {
+  const isLight = skill.theme === 'light';
+  const LogoComponent = LOGO_MAP[skill.logoKey] || PythonLogo;
+
   return (
     <div
       onMouseEnter={() => audioEngine.playHoverTone()}
-      className="p-5 rounded-2xl bg-neutral-950/80 border border-white/10 hover:border-white/25 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden"
+      className={`group relative rounded-2xl p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 select-none ${
+        isLight
+          ? 'bg-white/95 text-neutral-900 border border-neutral-200/90 shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.12)] hover:border-neutral-400 backdrop-blur-md'
+          : 'bg-[#0e0e12]/95 text-white border border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.6)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.85)] hover:border-white/25 backdrop-blur-md'
+      }`}
     >
-      {/* Subtle accent line on top */}
-      <div
-        className="absolute top-0 left-0 right-0 h-[2px] opacity-40 group-hover:opacity-100 transition-opacity"
-        style={{ backgroundColor: skill.accent || '#00F0FF' }}
-      />
-
       <div>
-        <div className="flex items-center justify-between gap-2 mb-2">
-          <span className="font-mono text-[10px] tracking-widest text-neutral-500 uppercase">
+        {/* Top Meta Header: Index, Category, Arrow */}
+        <div className="flex items-center justify-between gap-2 mb-4">
+          <span className={`font-mono text-[11px] font-bold ${isLight ? 'text-neutral-400' : 'text-neutral-500'}`}>
+            {skill.id}
+          </span>
+          <span className={`font-mono text-[9px] font-semibold tracking-widest uppercase ${isLight ? 'text-neutral-400' : 'text-neutral-500'}`}>
             {skill.category}
           </span>
-          <span className="font-mono text-[10px] px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/10 text-neutral-300">
-            {skill.level}
-          </span>
+          <ArrowUpRight
+            className={`w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${
+              isLight ? 'text-neutral-400 group-hover:text-black' : 'text-neutral-500 group-hover:text-white'
+            }`}
+          />
         </div>
 
-        <h3 className="text-xl font-bold tracking-tight text-white mb-2 group-hover:text-neutral-100">
-          {skill.name}
-        </h3>
+        {/* Title & Brand Icon */}
+        <div className="flex items-center gap-3 mb-3">
+          <div
+            className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110 ${
+              isLight
+                ? 'bg-neutral-100 text-neutral-900'
+                : 'bg-white/10 text-white'
+            }`}
+          >
+            <LogoComponent className="w-5 h-5" />
+          </div>
+          <h3 className={`text-lg sm:text-xl font-black tracking-tight leading-tight ${isLight ? 'text-neutral-950' : 'text-white'}`}>
+            {skill.name}
+          </h3>
+        </div>
 
-        <p className="text-xs text-neutral-400 leading-relaxed mb-4">
+        {/* Short Description */}
+        <p className={`text-xs leading-relaxed mb-6 font-sans ${isLight ? 'text-neutral-500' : 'text-neutral-400'}`}>
           {skill.shortDescription}
         </p>
       </div>
 
-      <div className="pt-3 border-t border-white/[0.08]">
-        <span className="font-mono text-[9px] uppercase tracking-wider text-neutral-500 block mb-2">
-          CORE CAPABILITIES
-        </span>
-        <div className="flex flex-wrap gap-1.5">
-          {skill.capabilities.map((cap) => (
-            <span
-              key={cap}
-              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/[0.03] border border-white/[0.06] font-mono text-[10px] text-neutral-300"
-            >
-              <Check className="w-2.5 h-2.5 text-accent-cyan" />
-              <span>{cap}</span>
-            </span>
-          ))}
-        </div>
+      {/* Feature & Capability Pills Grid (2x2) */}
+      <div className="grid grid-cols-2 gap-2 pt-2">
+        {skill.capabilities.map((cap) => (
+          <div
+            key={cap}
+            className={`px-2.5 py-1.5 rounded-full font-mono text-[10px] tracking-wide flex items-center gap-1.5 transition-colors truncate ${
+              isLight
+                ? 'bg-neutral-100/90 text-neutral-700 border border-neutral-200 group-hover:bg-neutral-200/70'
+                : 'bg-white/[0.05] text-neutral-300 border border-white/10 group-hover:bg-white/[0.09]'
+            }`}
+            title={cap}
+          >
+            <Check className={`w-3 h-3 flex-shrink-0 stroke-[2.5] ${isLight ? 'text-neutral-600' : 'text-neutral-400'}`} />
+            <span className="truncate">{cap}</span>
+          </div>
+        ))}
       </div>
     </div>
   );
