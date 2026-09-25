@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { ArrowRight, Download } from 'lucide-react';
-import Button from '../components/Button';
+import { ArrowRight } from 'lucide-react';
 import HeroScene from '../three/HeroScene';
 import { audioEngine } from '../utils/audioEngine';
 
@@ -114,36 +113,34 @@ export default function Hero({ onOpenResume }) {
             </p>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3.5 pt-2">
-              <Button
-                variant="dark"
-                size="md"
-                icon={ArrowRight}
-                onClick={scrollToWorks}
-                className="!bg-black !text-white hover:!bg-neutral-800 !border-black shadow-lg"
-              >
-                EXPLORE WORKS
-              </Button>
-
-              <Button
-                variant="secondary"
-                size="md"
-                onClick={scrollToContact}
-                className="lg:bg-neutral-200/90 lg:text-black lg:border-black/20 lg:hover:bg-white"
-              >
-                CONTACT ME
-              </Button>
-
+            <div className="flex flex-wrap items-center gap-4 pt-3">
+              {/* 1. Realistic Black Tactile Button: EXPLORE WORKS */}
               <button
-                onClick={() => {
-                  audioEngine.playClickChime();
-                  if (onOpenResume) onOpenResume();
-                }}
+                onClick={scrollToWorks}
                 onMouseEnter={() => audioEngine.playHoverTone()}
-                className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold tracking-wider uppercase text-neutral-400 lg:text-neutral-800 hover:text-white lg:hover:text-black transition-colors px-2 py-2"
+                className="group relative inline-flex items-center gap-3 px-6 sm:px-7 py-3 rounded-full bg-black text-white font-mono text-xs font-bold tracking-wider uppercase border border-black/80 shadow-[inset_0_1px_1px_rgba(255,255,255,0.25),0_6px_20px_rgba(0,0,0,0.35),0_2px_4px_rgba(0,0,0,0.2)] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_12px_28px_-4px_rgba(0,0,0,0.5),0_0_25px_rgba(255,255,255,0.2)] hover:-translate-y-0.5 active:translate-y-0.5 active:scale-[0.98] transition-all duration-300 overflow-hidden cursor-pointer"
               >
-                <Download className="w-3.5 h-3.5" />
-                <span>DOWNLOAD RESUME</span>
+                {/* Specular Glare Shimmer sweep on hover */}
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/15 to-transparent transition-transform duration-700 ease-in-out pointer-events-none" />
+
+                <span className="relative z-10">EXPLORE WORKS</span>
+                
+                {/* Micro-animated Arrow Icon */}
+                <div className="relative z-10 transition-transform duration-300 ease-out group-hover:translate-x-1.5">
+                  <ArrowRight className="w-4 h-4 stroke-[2.2]" />
+                </div>
+              </button>
+
+              {/* 2. Realistic Satin-Finish Pill Button: CONTACT ME */}
+              <button
+                onClick={scrollToContact}
+                onMouseEnter={() => audioEngine.playHoverTone()}
+                className="group relative inline-flex items-center justify-center px-6 sm:px-7 py-3 rounded-full bg-neutral-200/80 lg:bg-neutral-200/90 hover:bg-white text-black font-mono text-xs font-bold tracking-wider uppercase border border-black/15 hover:border-black/35 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_4px_14px_rgba(0,0,0,0.08)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,1),0_8px_24px_rgba(0,0,0,0.15)] hover:-translate-y-0.5 active:translate-y-0.5 active:scale-[0.98] transition-all duration-300 cursor-pointer overflow-hidden"
+              >
+                {/* Soft specular sheen sweep */}
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 ease-in-out pointer-events-none" />
+
+                <span className="relative z-10">CONTACT ME</span>
               </button>
             </div>
 
