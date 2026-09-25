@@ -164,7 +164,7 @@ export default function Contact() {
           <div className="lg:col-span-6 space-y-8 sm:space-y-10">
             
             {/* Header Block */}
-            <div className="space-y-4 max-w-xl reveal-init reveal-mask">
+            <div className="space-y-4 max-w-xl reveal-init reveal-slide-left">
               {/* Top Pill Tag */}
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 border border-neutral-300/80 backdrop-blur-md shadow-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-neutral-900" />

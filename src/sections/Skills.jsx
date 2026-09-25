@@ -91,7 +91,7 @@ export default function Skills() {
       <div className="max-w-[1520px] mx-auto px-6 sm:px-10 lg:px-14 relative z-10 space-y-10">
         
         {/* Header Block: Title & Philosophy */}
-        <div className="max-w-2xl space-y-4 reveal-init reveal-mask">
+        <div className="max-w-2xl space-y-4 reveal-init reveal-slide-up">
           
           {/* Top Pill Tag */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 border border-neutral-300/80 backdrop-blur-md shadow-sm">
