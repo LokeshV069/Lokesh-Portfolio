@@ -34,11 +34,12 @@ export default function Loader({ onComplete }) {
           setIsReady(true);
           setTimeout(() => {
             finishLoading();
-          }, 600);
+          }, 900);
           return 100;
         }
 
-        const increment = Math.floor(Math.random() * 6) + 3;
+        // Smooth gradual pacing (~4 seconds total)
+        const increment = Math.random() < 0.3 ? 1 : Math.floor(Math.random() * 2) + 1;
         const next = Math.min(prev + increment, 100);
         const matched = statuses.slice().reverse().find((s) => next >= s.at);
         if (matched) {
@@ -46,7 +47,7 @@ export default function Loader({ onComplete }) {
         }
         return next;
       });
-    }, 45);
+    }, 60);
 
     // Allow user to click or press any key to enter immediately
     const handleKeyDown = () => finishLoading();
