@@ -2,23 +2,24 @@ import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 /**
- * Creates a high-fidelity soft radial contact shadow texture
+ * Creates an ultra-smooth, high-resolution radial contact shadow texture
+ * that blends into the off-white architectural background without banding.
  */
 function createContactShadowTexture() {
   const canvas = document.createElement('canvas');
-  canvas.width = 256;
-  canvas.height = 256;
+  canvas.width = 512;
+  canvas.height = 512;
   const ctx = canvas.getContext('2d');
 
-  const gradient = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
-  gradient.addColorStop(0, 'rgba(0, 0, 0, 0.42)');
-  gradient.addColorStop(0.25, 'rgba(0, 0, 0, 0.28)');
-  gradient.addColorStop(0.55, 'rgba(0, 0, 0, 0.10)');
-  gradient.addColorStop(0.85, 'rgba(0, 0, 0, 0.02)');
+  const gradient = ctx.createRadialGradient(256, 256, 0, 256, 256, 256);
+  gradient.addColorStop(0, 'rgba(15, 15, 20, 0.45)');
+  gradient.addColorStop(0.18, 'rgba(15, 15, 20, 0.32)');
+  gradient.addColorStop(0.42, 'rgba(15, 15, 20, 0.14)');
+  gradient.addColorStop(0.72, 'rgba(15, 15, 20, 0.03)');
   gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
   ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, 256, 256);
+  ctx.fillRect(0, 0, 512, 512);
 
   const texture = new THREE.CanvasTexture(canvas);
   texture.needsUpdate = true;
@@ -32,15 +33,14 @@ export default function AboutObjectsScene() {
     const container = containerRef.current;
     if (!container) return;
 
-    let width = container.clientWidth || 400;
-    let height = container.clientHeight || 260;
+    let width = container.clientWidth || 450;
+    let height = container.clientHeight || 280;
 
-    // 1. Scene, Camera & Renderer
+    // 1. Scene, Camera & WebGL Renderer
     const scene = new THREE.Scene();
     
-    // Perspective camera with isometric-like FOV
-    const camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
-    camera.position.set(0, 1.2, 9.5);
+    const camera = new THREE.PerspectiveCamera(34, width / height, 0.1, 100);
+    camera.position.set(0, 1.2, 9.8);
     camera.lookAt(0, -0.2, 0);
 
     const renderer = new THREE.WebGLRenderer({
@@ -51,46 +51,49 @@ export default function AboutObjectsScene() {
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.15;
+    renderer.toneMappingExposure = 1.2;
     container.appendChild(renderer.domElement);
 
-    // 2. Lighting Setup (tuned for architectural matte black shapes on white background)
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.4);
+    // 2. High-Fidelity Architectural Lighting
+    // Ambient light prevents pitch-black silhouettes
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.7);
     scene.add(ambientLight);
 
-    // Key directional light from upper-left
-    const keyLight = new THREE.DirectionalLight(0xffffff, 3.2);
-    keyLight.position.set(-6, 10, 7);
+    // Key directional light from upper-left (creates crisp top highlight & side contrast)
+    const keyLight = new THREE.DirectionalLight(0xffffff, 3.8);
+    keyLight.position.set(-6, 11, 8);
     scene.add(keyLight);
 
-    // Rim / fill light from right
-    const fillLight = new THREE.DirectionalLight(0xffffff, 1.0);
-    fillLight.position.set(7, -2, 5);
-    scene.add(fillLight);
-
-    // Soft top fill
-    const topLight = new THREE.DirectionalLight(0xffffff, 0.8);
-    topLight.position.set(0, 8, 2);
+    // Subtle sky light from directly above
+    const topLight = new THREE.DirectionalLight(0xffffff, 1.4);
+    topLight.position.set(0, 10, 2);
     scene.add(topLight);
 
+    // Fill light from bottom-right to soften shadows
+    const fillLight = new THREE.DirectionalLight(0xdbe3ee, 1.3);
+    fillLight.position.set(7, -3, 6);
+    scene.add(fillLight);
+
     // 3. Materials
-    const matteBlackCubeMat = new THREE.MeshStandardMaterial({
-      color: 0x1f1f22,
-      roughness: 0.28,
-      metalness: 0.15,
+    // Matte dark graphite cube material with physical specular highlight on top face
+    const cubeMaterial = new THREE.MeshStandardMaterial({
+      color: 0x2b2c31,
+      roughness: 0.32,
+      metalness: 0.18,
       flatShading: false,
     });
 
-    const matteBlackTorusMat = new THREE.MeshStandardMaterial({
-      color: 0x1c1c1f,
-      roughness: 0.32,
-      metalness: 0.2,
-      flatShading: true, // gives subtle faceted rings matching the reference image!
+    // Matte faceted torus material matching the reference image's polygon wireframe look
+    const torusMaterial = new THREE.MeshStandardMaterial({
+      color: 0x27282d,
+      roughness: 0.34,
+      metalness: 0.20,
+      flatShading: true, // Clean polygon facets
     });
 
     // Shadow plane material
     const shadowTexture = createContactShadowTexture();
-    const shadowMat = new THREE.MeshBasicMaterial({
+    const shadowMaterial = new THREE.MeshBasicMaterial({
       map: shadowTexture,
       transparent: true,
       opacity: 0.85,
@@ -98,47 +101,45 @@ export default function AboutObjectsScene() {
     });
 
     // 4. Object Groups
-    const group = new THREE.Group();
-    scene.add(group);
+    const rootGroup = new THREE.Group();
+    scene.add(rootGroup);
 
     // --- CUBE SETUP ---
     const cubeGroup = new THREE.Group();
-    cubeGroup.position.set(-1.75, 0.05, 0);
-    group.add(cubeGroup);
+    cubeGroup.position.set(-1.8, 0.05, 0);
+    rootGroup.add(cubeGroup);
 
-    // Isometric Cube Geometry
-    const cubeGeo = new THREE.BoxGeometry(1.65, 1.65, 1.65);
-    const cubeMesh = new THREE.Mesh(cubeGeo, matteBlackCubeMat);
-    // Classic isometric angle
-    cubeMesh.rotation.set(0.61, 0.78, -0.3);
+    const cubeGeo = new THREE.BoxGeometry(1.7, 1.7, 1.7);
+    const cubeMesh = new THREE.Mesh(cubeGeo, cubeMaterial);
+    cubeMesh.rotation.set(0.58, 0.76, -0.28); // Pure isometric angle
     cubeGroup.add(cubeMesh);
 
     // Cube contact shadow
-    const cubeShadowGeo = new THREE.PlaneGeometry(3.0, 3.0);
-    const cubeShadow = new THREE.Mesh(cubeShadowGeo, shadowMat.clone());
+    const cubeShadowGeo = new THREE.PlaneGeometry(3.2, 3.2);
+    const cubeShadow = new THREE.Mesh(cubeShadowGeo, shadowMaterial.clone());
     cubeShadow.rotation.x = -Math.PI / 2;
-    cubeShadow.position.y = -1.35;
+    cubeShadow.position.y = -1.4;
     cubeGroup.add(cubeShadow);
 
     // --- TORUS SETUP ---
     const torusGroup = new THREE.Group();
-    torusGroup.position.set(1.75, 0.0, 0);
-    group.add(torusGroup);
+    torusGroup.position.set(1.8, 0.0, 0);
+    rootGroup.add(torusGroup);
 
-    // Torus Geometry with subtle polygon steps
-    const torusGeo = new THREE.TorusGeometry(1.15, 0.44, 22, 44);
-    const torusMesh = new THREE.Mesh(torusGeo, matteBlackTorusMat);
-    torusMesh.rotation.set(1.15, 0.35, 0.25);
+    // Balanced 18x36 segments for uniform, beautiful faceted geometry
+    const torusGeo = new THREE.TorusGeometry(1.15, 0.44, 18, 36);
+    const torusMesh = new THREE.Mesh(torusGeo, torusMaterial);
+    torusMesh.rotation.set(1.12, 0.35, 0.25);
     torusGroup.add(torusMesh);
 
     // Torus contact shadow
-    const torusShadowGeo = new THREE.PlaneGeometry(3.2, 3.2);
-    const torusShadow = new THREE.Mesh(torusShadowGeo, shadowMat.clone());
+    const torusShadowGeo = new THREE.PlaneGeometry(3.4, 3.4);
+    const torusShadow = new THREE.Mesh(torusShadowGeo, shadowMaterial.clone());
     torusShadow.rotation.x = -Math.PI / 2;
-    torusShadow.position.y = -1.35;
+    torusShadow.position.y = -1.4;
     torusGroup.add(torusShadow);
 
-    // 5. Interactive Mouse Tracking & Raycasting
+    // 5. Interactive Raycaster & Mouse Parallax
     const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
     const raycaster = new THREE.Raycaster();
     const mouseCoords = new THREE.Vector2(-999, -999);
@@ -167,7 +168,7 @@ export default function AboutObjectsScene() {
     container.addEventListener('mousemove', handleMouseMove, { passive: true });
     container.addEventListener('mouseleave', handleMouseLeave, { passive: true });
 
-    // 6. Animation Loop
+    // 6. 60 FPS Render Loop
     let animationFrameId;
     let clock = new THREE.Clock();
 
@@ -176,10 +177,10 @@ export default function AboutObjectsScene() {
       const elapsedTime = clock.getElapsedTime();
 
       // Smooth mouse lerping
-      mouse.x += (mouse.targetX - mouse.x) * 0.05;
-      mouse.y += (mouse.targetY - mouse.y) * 0.05;
+      mouse.x += (mouse.targetX - mouse.x) * 0.06;
+      mouse.y += (mouse.targetY - mouse.y) * 0.06;
 
-      // Raycasting for interactive hover effects
+      // Raycasting for interactive hover
       raycaster.setFromCamera(mouseCoords, camera);
       const intersects = raycaster.intersectObjects([cubeMesh, torusMesh]);
       if (intersects.length > 0) {
@@ -195,38 +196,38 @@ export default function AboutObjectsScene() {
         isHoveringTorus = false;
       }
 
-      // Cube gentle harmonic floating + mouse response
-      const cubeHoverY = isHoveringCube ? 0.22 : 0;
-      const cubeFloat = Math.sin(elapsedTime * 1.4) * 0.08 + cubeHoverY;
+      // --- CUBE ANIMATION ---
+      const cubeHoverY = isHoveringCube ? 0.25 : 0;
+      const cubeFloat = Math.sin(elapsedTime * 1.5) * 0.07 + cubeHoverY;
       cubeMesh.position.y += (cubeFloat - cubeMesh.position.y) * 0.08;
       
-      // Cube rotation with mouse influence
-      cubeMesh.rotation.y = 0.78 + Math.sin(elapsedTime * 0.5) * 0.12 + mouse.x * 0.45;
-      cubeMesh.rotation.x = 0.61 + Math.cos(elapsedTime * 0.4) * 0.08 - mouse.y * 0.35;
+      // Dynamic tilt responding to cursor
+      cubeMesh.rotation.y = 0.76 + Math.sin(elapsedTime * 0.4) * 0.1 + mouse.x * 0.42;
+      cubeMesh.rotation.x = 0.58 + Math.cos(elapsedTime * 0.3) * 0.06 - mouse.y * 0.32;
 
-      // Dynamic shadow reacting to cube height
-      const cubeShadowScale = 1.0 - cubeMesh.position.y * 0.2;
+      // Contact shadow dynamics
+      const cubeShadowScale = 1.0 - cubeMesh.position.y * 0.18;
       cubeShadow.scale.set(cubeShadowScale, cubeShadowScale, 1);
-      cubeShadow.material.opacity = 0.85 - cubeMesh.position.y * 0.3;
+      cubeShadow.material.opacity = 0.85 - cubeMesh.position.y * 0.25;
 
-      // Torus gentle harmonic floating + mouse response
-      const torusHoverY = isHoveringTorus ? 0.22 : 0;
-      const torusFloat = Math.cos(elapsedTime * 1.3) * 0.09 + torusHoverY;
+      // --- TORUS ANIMATION ---
+      const torusHoverY = isHoveringTorus ? 0.25 : 0;
+      const torusFloat = Math.cos(elapsedTime * 1.4) * 0.08 + torusHoverY;
       torusMesh.position.y += (torusFloat - torusMesh.position.y) * 0.08;
 
-      // Torus slow continuous rotation + mouse tilt
+      // Gentle continuous rotation & mouse tilt
       torusMesh.rotation.z += 0.003;
-      torusMesh.rotation.x = 1.15 + Math.sin(elapsedTime * 0.6) * 0.1 - mouse.y * 0.4;
-      torusMesh.rotation.y = 0.35 + Math.cos(elapsedTime * 0.5) * 0.12 + mouse.x * 0.45;
+      torusMesh.rotation.x = 1.12 + Math.sin(elapsedTime * 0.5) * 0.08 - mouse.y * 0.35;
+      torusMesh.rotation.y = 0.35 + Math.cos(elapsedTime * 0.4) * 0.1 + mouse.x * 0.42;
 
-      // Dynamic shadow reacting to torus height
-      const torusShadowScale = 1.0 - torusMesh.position.y * 0.2;
+      // Contact shadow dynamics
+      const torusShadowScale = 1.0 - torusMesh.position.y * 0.18;
       torusShadow.scale.set(torusShadowScale, torusShadowScale, 1);
-      torusShadow.material.opacity = 0.85 - torusMesh.position.y * 0.3;
+      torusShadow.material.opacity = 0.85 - torusMesh.position.y * 0.25;
 
-      // Group subtle global parallax sway
-      group.position.x = mouse.x * 0.25;
-      group.position.y = mouse.y * 0.15;
+      // Global subtle parallax
+      rootGroup.position.x = mouse.x * 0.22;
+      rootGroup.position.y = mouse.y * 0.14;
 
       renderer.render(scene, camera);
     };
@@ -236,19 +237,18 @@ export default function AboutObjectsScene() {
     // 7. Responsive Resizing
     const handleResize = () => {
       if (!container) return;
-      const newWidth = container.clientWidth || 400;
-      const newHeight = container.clientHeight || 260;
+      const newWidth = container.clientWidth || 450;
+      const newHeight = container.clientHeight || 280;
       camera.aspect = newWidth / newHeight;
 
-      // Responsive object spacing for narrower screens (mobile / tablet)
       if (newWidth < 460) {
-        camera.position.z = 11.5;
-        cubeGroup.position.x = -1.4;
-        torusGroup.position.x = 1.4;
+        camera.position.z = 11.2;
+        cubeGroup.position.x = -1.35;
+        torusGroup.position.x = 1.35;
       } else {
-        camera.position.z = 9.5;
-        cubeGroup.position.x = -1.75;
-        torusGroup.position.x = 1.75;
+        camera.position.z = 9.8;
+        cubeGroup.position.x = -1.8;
+        torusGroup.position.x = 1.8;
       }
 
       camera.updateProjectionMatrix();
@@ -256,9 +256,9 @@ export default function AboutObjectsScene() {
     };
 
     window.addEventListener('resize', handleResize);
-    handleResize(); // Initial sizing check
+    handleResize();
 
-    // 8. Cleanup
+    // 8. Disposal & Cleanup
     return () => {
       window.removeEventListener('resize', handleResize);
       container.removeEventListener('mousemove', handleMouseMove);
@@ -266,15 +266,15 @@ export default function AboutObjectsScene() {
       cancelAnimationFrame(animationFrameId);
 
       cubeGeo.dispose();
-      matteBlackCubeMat.dispose();
+      cubeMaterial.dispose();
       cubeShadowGeo.dispose();
 
       torusGeo.dispose();
-      matteBlackTorusMat.dispose();
+      torusMaterial.dispose();
       torusShadowGeo.dispose();
 
       shadowTexture.dispose();
-      shadowMat.dispose();
+      shadowMaterial.dispose();
 
       renderer.dispose();
       if (container.contains(renderer.domElement)) {

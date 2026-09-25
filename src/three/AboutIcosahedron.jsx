@@ -13,8 +13,8 @@ export default function AboutIcosahedron() {
 
     // Scene & Camera
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 50);
-    camera.position.set(0, 0, 5.2);
+    const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 50);
+    camera.position.set(0, 0, 5.0);
 
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -24,60 +24,61 @@ export default function AboutIcosahedron() {
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.1;
+    renderer.toneMappingExposure = 1.2;
     container.appendChild(renderer.domElement);
 
-    // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+    // Architectural Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.6);
     scene.add(ambientLight);
 
-    const keyLight = new THREE.DirectionalLight(0xffffff, 3.0);
-    keyLight.position.set(-5, 8, 6);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 3.6);
+    keyLight.position.set(-5, 9, 6);
     scene.add(keyLight);
 
-    const fillLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    const fillLight = new THREE.DirectionalLight(0xdbe3ee, 1.2);
     fillLight.position.set(5, -4, 4);
     scene.add(fillLight);
 
     // Soft Contact Shadow Plane underneath
     const canvas = document.createElement('canvas');
-    canvas.width = 128;
-    canvas.height = 128;
+    canvas.width = 256;
+    canvas.height = 256;
     const ctx = canvas.getContext('2d');
-    const grad = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
-    grad.addColorStop(0, 'rgba(0, 0, 0, 0.45)');
-    grad.addColorStop(0.3, 'rgba(0, 0, 0, 0.22)');
-    grad.addColorStop(0.65, 'rgba(0, 0, 0, 0.06)');
+    const grad = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
+    grad.addColorStop(0, 'rgba(15, 15, 20, 0.40)');
+    grad.addColorStop(0.2, 'rgba(15, 15, 20, 0.25)');
+    grad.addColorStop(0.5, 'rgba(15, 15, 20, 0.08)');
+    grad.addColorStop(0.8, 'rgba(15, 15, 20, 0.01)');
     grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
     ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, 128, 128);
+    ctx.fillRect(0, 0, 256, 256);
     const shadowTex = new THREE.CanvasTexture(canvas);
 
-    const shadowGeo = new THREE.PlaneGeometry(3.0, 3.0);
+    const shadowGeo = new THREE.PlaneGeometry(3.2, 3.2);
     const shadowMat = new THREE.MeshBasicMaterial({
       map: shadowTex,
       transparent: true,
-      opacity: 0.75,
+      opacity: 0.8,
       depthWrite: false
     });
     const shadowMesh = new THREE.Mesh(shadowGeo, shadowMat);
     shadowMesh.rotation.x = -Math.PI / 2.2;
-    shadowMesh.position.set(0.2, -1.3, -0.4);
+    shadowMesh.position.set(0.15, -1.3, -0.3);
     scene.add(shadowMesh);
 
-    // Faceted Icosahedron (Geodesic low-poly sphere)
+    // Faceted Icosahedron (Geodesic low-poly sphere with crisp triangular facets)
     const geo = new THREE.IcosahedronGeometry(1.2, 1);
     const mat = new THREE.MeshStandardMaterial({
-      color: 0x1b1b1e,
+      color: 0x27282d,
       roughness: 0.35,
-      metalness: 0.25,
-      flatShading: true
+      metalness: 0.22,
+      flatShading: true // Gives crisp triangular facets matching mockup
     });
     const mesh = new THREE.Mesh(geo, mat);
-    mesh.position.set(0, 0.1, 0);
+    mesh.position.set(0, 0.08, 0);
     scene.add(mesh);
 
-    // Mouse Tracking for subtle parallax
+    // Mouse Tracking for smooth parallax
     const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
     const handleMouseMove = (e) => {
       const rect = container.getBoundingClientRect();
@@ -97,21 +98,22 @@ export default function AboutIcosahedron() {
       animationFrameId = requestAnimationFrame(animate);
       const elapsedTime = clock.getElapsedTime();
 
-      mouse.x += (mouse.targetX - mouse.x) * 0.05;
-      mouse.y += (mouse.targetY - mouse.y) * 0.05;
+      mouse.x += (mouse.targetX - mouse.x) * 0.06;
+      mouse.y += (mouse.targetY - mouse.y) * 0.06;
 
-      // Gentle continuous rotation
-      mesh.rotation.x = elapsedTime * 0.25 + mouse.y * 0.3;
-      mesh.rotation.y = elapsedTime * 0.35 + mouse.x * 0.4;
-      mesh.rotation.z = Math.sin(elapsedTime * 0.5) * 0.1;
+      // Gentle continuous rotation + parallax
+      mesh.rotation.x = elapsedTime * 0.22 + mouse.y * 0.35;
+      mesh.rotation.y = elapsedTime * 0.32 + mouse.x * 0.45;
+      mesh.rotation.z = Math.sin(elapsedTime * 0.4) * 0.08;
 
-      // Floating bob
-      const floatY = Math.sin(elapsedTime * 1.5) * 0.1;
-      mesh.position.y = 0.1 + floatY;
+      // Smooth floating harmonic bob
+      const floatY = Math.sin(elapsedTime * 1.4) * 0.09;
+      mesh.position.y = 0.08 + floatY;
 
       // Shadow reacts to elevation
-      shadowMesh.scale.set(1.0 - floatY * 0.3, 1.0 - floatY * 0.3, 1);
-      shadowMesh.material.opacity = 0.75 - floatY * 0.2;
+      const shadowScale = 1.0 - floatY * 0.25;
+      shadowMesh.scale.set(shadowScale, shadowScale, 1);
+      shadowMesh.material.opacity = 0.8 - floatY * 0.2;
 
       renderer.render(scene, camera);
     };
@@ -150,7 +152,7 @@ export default function AboutIcosahedron() {
   return (
     <div 
       ref={mountRef} 
-      className="w-full h-full pointer-events-none select-none"
+      className="w-full h-full select-none pointer-events-none"
       title="Faceted Polyhedron"
     />
   );
