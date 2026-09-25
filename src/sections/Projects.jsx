@@ -89,17 +89,17 @@ export default function Projects({ onOpenCaseStudy }) {
       {/* For mobile / tablet: light background for readability */}
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#F5F5F7] via-[#F5F5F7] to-black lg:hidden pointer-events-none" />
 
-      {/* Dark Lunar Mountain Terrain (Right & Bottom Behind Card 05 & 03) */}
+      {/* Black & White Low-Poly Mountain Background (Right & Bottom behind cards) */}
       <div
         className="absolute inset-0 z-0 pointer-events-none hidden lg:block overflow-hidden"
         aria-hidden="true"
       >
         <div
-          className="absolute right-0 bottom-0 w-[62%] h-[560px] bg-no-repeat bg-right-bottom bg-cover opacity-60 pointer-events-none"
+          className="absolute right-0 bottom-0 w-[62%] h-[600px] bg-no-repeat bg-right-bottom bg-cover opacity-75 pointer-events-none"
           style={{
-            backgroundImage: "url('/projects/projects_space_terrain.jpg')",
-            WebkitMaskImage: 'linear-gradient(to top, black 50%, transparent 95%)',
-            maskImage: 'linear-gradient(to top, black 50%, transparent 95%)'
+            backgroundImage: "url('/mountain-bg-dark.jpg')",
+            WebkitMaskImage: 'linear-gradient(to top, black 55%, transparent 100%)',
+            maskImage: 'linear-gradient(to top, black 55%, transparent 100%)'
           }}
         />
       </div>
