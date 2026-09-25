@@ -120,7 +120,7 @@ export default function ResumeModal({ isOpen, onClose }) {
                 XR & SPATIAL COMPUTING
               </span>
               <p className="text-neutral-200">
-                Unity, C#, Vuforia, OpenXR, 6DoF Hand Tracking, Spatial UI, 3D Interaction Physics
+                Unity, Vuforia, OpenXR, 6DoF Hand Tracking, Spatial UI, 3D Interaction Physics
               </p>
             </div>
             <div className="p-3.5 rounded-xl bg-neutral-900/40 border border-white/10">
@@ -136,15 +136,15 @@ export default function ResumeModal({ isOpen, onClose }) {
                 WEB ENGINEERING
               </span>
               <p className="text-neutral-200">
-                React, JavaScript ES6+, Three.js / WebGL, HTML5 / CSS3, Tailwind CSS, REST APIs
+                React, JavaScript ES6+, HTML5 / CSS3, Tailwind CSS, REST APIs
               </p>
             </div>
             <div className="p-3.5 rounded-xl bg-neutral-900/40 border border-white/10">
               <span className="font-mono text-[10px] text-neutral-500 uppercase block mb-1">
-                DESIGN & SYSTEM ARCHITECTURE
+                UI/UX & DESIGN
               </span>
               <p className="text-neutral-200">
-                Figma, Design Systems, Auto Layout, High-Fidelity Prototyping, Modular System Design
+                Figma, Design Systems, Auto Layout, High-Fidelity Prototyping
               </p>
             </div>
           </div>

@@ -17,14 +17,6 @@ export const SKILLS_DATA = [
     accent: '#00F0FF'
   },
   {
-    name: 'C#',
-    category: 'PROGRAMMING',
-    level: 'Proficient',
-    shortDescription: 'Primary language for XR physics, 3D interaction logic, and Unity engine gameplay scripting.',
-    capabilities: ['Unity Scripting', 'Object-Oriented Architecture', 'Physics Handlers', 'Event Systems'],
-    accent: '#8B5CF6'
-  },
-  {
     name: 'Java',
     category: 'PROGRAMMING',
     level: 'Intermediate',
@@ -81,27 +73,11 @@ export const SKILLS_DATA = [
     accent: '#00F0FF'
   },
   {
-    name: 'Three.js / WebGL',
-    category: 'WEB',
-    level: 'Intermediate',
-    shortDescription: 'Rendering interactive 3D geometries, custom shaders, dynamic lighting, and procedural meshes in the browser.',
-    capabilities: ['BufferGeometry Manipulation', 'PBR Lighting', 'Camera Controls', 'Animation Loops', 'GPU Performance Tuning'],
-    accent: '#8B5CF6'
-  },
-  {
     name: 'UI/UX & Figma',
     category: 'DESIGN',
     level: 'Proficient',
     shortDescription: 'Designing wireframes, design systems, interactive prototypes, and typography-driven editorial interfaces.',
     capabilities: ['Design Systems', 'Auto Layout & Grids', 'High-Fidelity Prototyping', 'Spatial UI Guidelines', 'Micro-Interactions'],
     accent: '#F43F5E'
-  },
-  {
-    name: 'System Design',
-    category: 'DESIGN',
-    level: 'Intermediate',
-    shortDescription: 'Architecting clean modular software systems, separating presentation from logic, and planning data flows.',
-    capabilities: ['Modular Architecture', 'API Contract Design', 'Event-Driven Patterns', 'Data Pipeline Planning'],
-    accent: '#3B82F6'
   }
 ];
