@@ -241,7 +241,7 @@ export default function Navbar({ onOpenResume, soundEnabled, setSoundEnabled }) 
             </div>
             <div className="flex items-center gap-6 font-mono text-xs text-neutral-300">
               <a
-                href="https://github.com/lokeshv-dev"
+                href="https://github.com/LokeshV069"
                 target="_blank"
                 rel="noreferrer"
                 className="hover:text-white transition-colors"
@@ -249,7 +249,7 @@ export default function Navbar({ onOpenResume, soundEnabled, setSoundEnabled }) 
                 GITHUB
               </a>
               <a
-                href="https://linkedin.com/in/lokesh-valmeeki"
+                href="https://www.linkedin.com/in/lokesh--v/"
                 target="_blank"
                 rel="noreferrer"
                 className="hover:text-white transition-colors"

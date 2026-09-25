@@ -40,7 +40,7 @@ export const PROJECTS_DATA = [
       ],
       result: 'Demonstrated an engaging shopping experience with 40% higher product inspection engagement.',
       learnings: 'Subtle contact shadows are critical for visual anchoring on real-world floor surfaces.',
-      links: { github: 'https://github.com/lokeshv-dev', demo: null }
+      links: { github: 'https://github.com/LokeshV069', demo: null }
     }
   },
   {
@@ -84,7 +84,7 @@ export const PROJECTS_DATA = [
       ],
       result: 'Enabled intuitive spatial comprehension of stereochemistry with 95% positive student comprehension feedback.',
       learnings: 'Clear color coding (CPK conventions) is essential for students to recognize elements instantly in space.',
-      links: { github: 'https://github.com/lokeshv-dev', demo: null }
+      links: { github: 'https://github.com/LokeshV069', demo: null }
     }
   },
   {
@@ -128,7 +128,7 @@ export const PROJECTS_DATA = [
       ],
       result: 'A natural, responsive gesture interface where complex 3D meshes can be manipulated without physical controllers.',
       learnings: 'Proximity visual feedback before contact is made gives users the confidence they need in mid-air interactions.',
-      links: { github: 'https://github.com/lokeshv-dev', demo: null }
+      links: { github: 'https://github.com/LokeshV069', demo: null }
     }
   },
   {
@@ -172,7 +172,7 @@ export const PROJECTS_DATA = [
       ],
       result: 'Accelerates literature review workflows from hours to seconds with verifiable grounded accuracy.',
       learnings: 'Optimal chunk size and semantic overlap are essential to ensure citations remain contextually coherent.',
-      links: { github: 'https://github.com/lokeshv-dev', demo: null }
+      links: { github: 'https://github.com/LokeshV069', demo: null }
     }
   },
   {
@@ -221,7 +221,7 @@ export const PROJECTS_DATA = [
       ],
       result: 'A working end-to-end wealth advisory prototype that reduces portfolio drift analysis time from hours to instantaneous contextual alerts.',
       learnings: 'Combining deterministic threshold calculations with LLM-generated narrative explanations produces far more reliable and trustworthy advisory outputs.',
-      links: { github: 'https://github.com/lokeshv-dev', demo: null }
+      links: { github: 'https://github.com/LokeshV069', demo: null }
     }
   }
 ];

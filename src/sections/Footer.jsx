@@ -47,9 +47,9 @@ export default function Footer({ onOpenResume }) {
               B.E. Computer Science and Design • SNS College of Engineering
             </p>
 
-            <div className="pt-2 flex items-center gap-4 text-xs font-mono text-neutral-300">
+            <div className="pt-2 flex flex-wrap items-center gap-4 text-xs font-mono text-neutral-300">
               <a
-                href="https://github.com/lokeshv-dev"
+                href="https://github.com/LokeshV069"
                 target="_blank"
                 rel="noreferrer"
                 data-cursor="external"
@@ -59,13 +59,33 @@ export default function Footer({ onOpenResume }) {
               </a>
               <span className="text-neutral-700">•</span>
               <a
-                href="https://linkedin.com/in/lokesh-valmeeki"
+                href="https://www.linkedin.com/in/lokesh--v/"
                 target="_blank"
                 rel="noreferrer"
                 data-cursor="external"
                 className="hover:text-white transition-colors"
               >
                 LINKEDIN
+              </a>
+              <span className="text-neutral-700">•</span>
+              <a
+                href="https://x.com/Lokzx_"
+                target="_blank"
+                rel="noreferrer"
+                data-cursor="external"
+                className="hover:text-white transition-colors"
+              >
+                X (TWITTER)
+              </a>
+              <span className="text-neutral-700">•</span>
+              <a
+                href="https://www.instagram.com/______.lokesh.___/"
+                target="_blank"
+                rel="noreferrer"
+                data-cursor="external"
+                className="hover:text-white transition-colors"
+              >
+                INSTAGRAM
               </a>
               <span className="text-neutral-700">•</span>
               <a

@@ -10,7 +10,7 @@ export default function SocialDock({ soundEnabled, setSoundEnabled }) {
   const socials = [
     {
       name: 'GitHub',
-      url: 'https://github.com/lokeshv-dev',
+      url: 'https://github.com/LokeshV069',
       icon: (
         <svg
           className="w-[18px] h-[18px] stroke-current fill-none"
@@ -31,7 +31,7 @@ export default function SocialDock({ soundEnabled, setSoundEnabled }) {
     },
     {
       name: 'LinkedIn',
-      url: 'https://linkedin.com/in/lokesh-valmeeki',
+      url: 'https://www.linkedin.com/in/lokesh--v/',
       icon: (
         <svg
           className="w-[18px] h-[18px] stroke-current fill-none"
@@ -52,7 +52,7 @@ export default function SocialDock({ soundEnabled, setSoundEnabled }) {
     },
     {
       name: 'Instagram',
-      url: 'https://instagram.com',
+      url: 'https://www.instagram.com/______.lokesh.___/',
       icon: (
         <svg
           className="w-[18px] h-[18px] stroke-current fill-none"
@@ -69,7 +69,7 @@ export default function SocialDock({ soundEnabled, setSoundEnabled }) {
     },
     {
       name: 'Twitter / X',
-      url: 'https://x.com',
+      url: 'https://x.com/Lokzx_',
       icon: (
         <svg
           className="w-[17px] h-[17px] stroke-current fill-none"

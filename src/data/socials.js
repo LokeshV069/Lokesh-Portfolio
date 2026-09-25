@@ -2,14 +2,26 @@ export const SOCIAL_LINKS = [
   {
     name: 'GitHub',
     label: 'GH',
-    url: 'https://github.com/lokeshv-dev',
-    handle: '@lokeshv-dev'
+    url: 'https://github.com/LokeshV069',
+    handle: '@LokeshV069'
   },
   {
     name: 'LinkedIn',
     label: 'IN',
-    url: 'https://linkedin.com/in/lokesh-valmeeki',
-    handle: 'lokesh-valmeeki'
+    url: 'https://www.linkedin.com/in/lokesh--v/',
+    handle: 'lokesh--v'
+  },
+  {
+    name: 'Instagram',
+    label: 'IG',
+    url: 'https://www.instagram.com/______.lokesh.___/',
+    handle: '@______.lokesh.___'
+  },
+  {
+    name: 'Twitter / X',
+    label: 'X',
+    url: 'https://x.com/Lokzx_',
+    handle: '@Lokzx_'
   },
   {
     name: 'Email',

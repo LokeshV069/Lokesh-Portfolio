@@ -53,7 +53,7 @@ export default function ResumeCTA({ onOpenResume }) {
             variant="secondary"
             size="lg"
             icon={ArrowUpRight}
-            href="https://linkedin.com/in/lokesh-valmeeki"
+            href="https://www.linkedin.com/in/lokesh--v/"
             target="_blank"
             rel="noreferrer"
             data-cursor="external"

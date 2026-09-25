@@ -85,7 +85,8 @@ export default function ResumeModal({ isOpen, onClose }) {
               <div>lokesh.valmeeki@gmail.com</div>
               <div>+91 88380 47271</div>
               <div>Coimbatore, Tamil Nadu, India</div>
-              <div>github.com/lokeshv-dev</div>
+              <div>github.com/LokeshV069</div>
+              <div>linkedin.com/in/lokesh--v</div>
             </div>
           </div>
         </header>

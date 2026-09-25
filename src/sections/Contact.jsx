@@ -363,7 +363,7 @@ export default function Contact() {
                 <div className="flex items-center gap-2.5">
                   {/* LinkedIn */}
                   <a
-                    href="https://linkedin.com/in/lokesh-valmeeki"
+                    href="https://www.linkedin.com/in/lokesh--v/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-white border border-neutral-200 shadow-sm flex items-center justify-center text-neutral-800 hover:text-black hover:scale-105 active:scale-95 transition-all"
@@ -374,7 +374,7 @@ export default function Contact() {
 
                   {/* GitHub */}
                   <a
-                    href="https://github.com/lokeshv-dev"
+                    href="https://github.com/LokeshV069"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-white border border-neutral-200 shadow-sm flex items-center justify-center text-neutral-800 hover:text-black hover:scale-105 active:scale-95 transition-all"
@@ -394,7 +394,7 @@ export default function Contact() {
 
                   {/* X / Twitter */}
                   <a
-                    href="https://x.com"
+                    href="https://x.com/Lokzx_"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-white border border-neutral-200 shadow-sm flex items-center justify-center text-neutral-800 hover:text-black hover:scale-105 active:scale-95 transition-all"
@@ -405,7 +405,7 @@ export default function Contact() {
 
                   {/* Instagram */}
                   <a
-                    href="https://instagram.com"
+                    href="https://www.instagram.com/______.lokesh.___/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-white border border-neutral-200 shadow-sm flex items-center justify-center text-neutral-800 hover:text-black hover:scale-105 active:scale-95 transition-all"
