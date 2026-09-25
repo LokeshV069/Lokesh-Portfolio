@@ -10,7 +10,6 @@ import AISystems from './sections/AISystems';
 import XRSection from './sections/XRSection';
 import Skills from './sections/Skills';
 import DesignSection from './sections/DesignSection';
-import Experience from './sections/Experience';
 import Achievements from './sections/Achievements';
 import Contact from './sections/Contact';
 import Footer from './sections/Footer';
@@ -63,9 +62,6 @@ export default function App() {
 
         {/* INTERACTION DESIGN / UI/UX GALLERY */}
         <DesignSection />
-
-        {/* EXPERIENCE INDEX (Editorial Timeline) */}
-        <Experience />
 
         {/* ACTIVITY LOG & ACHIEVEMENTS */}
         <Achievements />

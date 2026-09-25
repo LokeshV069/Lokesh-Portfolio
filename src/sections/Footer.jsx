@@ -12,7 +12,6 @@ export default function Footer({ onOpenResume }) {
   const navLinks = [
     { label: 'HOME', href: '#home' },
     { label: 'WORKS', href: '#projects' },
-    { label: 'EXPERIENCE', href: '#experience' },
     { label: '3D LAB', href: '#lab' },
     { label: 'AI SYSTEMS', href: '#ai-systems' },
     { label: 'XR SPATIAL', href: '#xr-spatial' },
