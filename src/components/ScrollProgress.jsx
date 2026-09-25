@@ -12,17 +12,12 @@ const SECTIONS = [
 ];
 
 export default function ScrollProgress({ onNavigate }) {
-  const [scrollPercent, setScrollPercent] = useState(0);
   const [activeSection, setActiveSection] = useState(SECTIONS[0]);
   const [showFloatingHud, setShowFloatingHud] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const percent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      setScrollPercent(Math.min(100, Math.max(0, percent)));
-
       setShowFloatingHud(scrollTop > 250);
 
       // Detect active section
@@ -57,18 +52,7 @@ export default function ScrollProgress({ onNavigate }) {
 
   return (
     <>
-      {/* 1. Ultra-Slim Top Laser Progress Bar */}
-      <div
-        className="fixed top-0 left-0 right-0 h-[2.5px] z-50 pointer-events-none bg-neutral-900/40 backdrop-blur-xs"
-        aria-hidden="true"
-      >
-        <div
-          className="h-full bg-gradient-to-r from-accent-cyan via-accent-violet to-accent-cyan transition-all duration-75 ease-out shadow-[0_0_12px_#00F0FF]"
-          style={{ width: `${scrollPercent}%` }}
-        />
-      </div>
-
-      {/* 2. Floating Section Indicator (Bottom-Right) */}
+      {/* Floating Section Indicator (Bottom-Right) */}
       <aside
         className={`fixed bottom-6 right-6 z-40 transition-all duration-500 ease-out hidden sm:flex items-center gap-2 pointer-events-auto ${
           showFloatingHud ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'

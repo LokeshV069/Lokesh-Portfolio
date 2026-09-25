@@ -72,7 +72,7 @@ export default function App() {
       {/* 1. Intro Transition & System Boot sequence */}
       {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
 
-      {/* 2. Top Laser Progress Bar & Floating Section HUD */}
+      {/* 2. Floating Section HUD */}
       <ScrollProgress onNavigate={handleNavigate} />
 
       {/* 3. Cinematic Warp Shutter Transition Overlay */}
