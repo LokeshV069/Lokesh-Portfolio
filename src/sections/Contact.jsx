@@ -9,6 +9,7 @@ import {
   ChevronDown,
   Terminal,
   ArrowRight,
+  ArrowUpRight,
   Box,
   Check,
   Quote
