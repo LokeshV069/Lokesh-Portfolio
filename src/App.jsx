@@ -6,8 +6,6 @@ import Hero from './sections/Hero';
 import About from './sections/About';
 import Projects from './sections/Projects';
 import SpatialLab from './sections/SpatialLab';
-import AISystems from './sections/AISystems';
-import XRSection from './sections/XRSection';
 import Skills from './sections/Skills';
 import DesignSection from './sections/DesignSection';
 import Achievements from './sections/Achievements';
@@ -50,12 +48,6 @@ export default function App() {
 
         {/* 3D SPATIAL LAB (Interactive WebGL Geometry Lab) */}
         <SpatialLab />
-
-        {/* AI SYSTEMS (Intelligence Layer & Node Graph) */}
-        <AISystems onOpenCaseStudy={(proj) => setSelectedProject(proj)} />
-
-        {/* XR / SPATIAL COMPUTING (From Screen to Space) */}
-        <XRSection />
 
         {/* TECHNICAL ARSENAL / SKILLS */}
         <Skills />

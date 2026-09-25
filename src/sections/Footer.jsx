@@ -13,8 +13,6 @@ export default function Footer({ onOpenResume }) {
     { label: 'HOME', href: '#home' },
     { label: 'WORKS', href: '#projects' },
     { label: '3D LAB', href: '#lab' },
-    { label: 'AI SYSTEMS', href: '#ai-systems' },
-    { label: 'XR SPATIAL', href: '#xr-spatial' },
     { label: 'SKILLS', href: '#skills' },
     { label: 'ABOUT', href: '#about' },
     { label: 'CONTACT', href: '#contact' }
