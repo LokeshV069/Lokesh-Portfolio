@@ -4,7 +4,6 @@ import { audioEngine } from '../utils/audioEngine';
 
 export default function Loader({ onComplete }) {
   const [progress, setProgress] = useState(0);
-  const [statusText, setStatusText] = useState('INITIALIZING SPATIAL CORE RUNTIME...');
   const [isFading, setIsFading] = useState(false);
   const [isReady, setIsReady] = useState(false);
 
@@ -19,31 +18,17 @@ export default function Loader({ onComplete }) {
 
   // Loading progress counter
   useEffect(() => {
-    const statuses = [
-      { at: 12, text: 'MOUNTING HARDWARE ACCELERATED 3D WEBGL ENGINE...' },
-      { at: 35, text: 'CALIBRATING CELESTIAL ORBITAL MATRICES & SHADERS...' },
-      { at: 58, text: 'INDEXING CHROMA VECTOR EMBEDDINGS & RAG PIPELINE...' },
-      { at: 80, text: 'INITIALIZING 6DOF SPATIAL GESTURES & AUDIO ENGINE...' },
-      { at: 96, text: 'SYNCHRONIZING TELEMETRY // SYSTEM NOMINAL' },
-      { at: 100, text: 'SYSTEM ONLINE // ALL SUBSYSTEMS NOMINAL' }
-    ];
-
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
           setIsReady(true);
-          setStatusText('SYSTEM ONLINE // ALL SUBSYSTEMS NOMINAL');
           return 100;
         }
 
         // Pacing: smooth ~4-second progression
         const increment = Math.random() < 0.3 ? 1 : Math.floor(Math.random() * 2) + 1;
         const next = Math.min(prev + increment, 100);
-        const matched = statuses.slice().reverse().find((s) => next >= s.at);
-        if (matched) {
-          setStatusText(matched.text);
-        }
         return next;
       });
     }, 55);
@@ -66,9 +51,8 @@ export default function Loader({ onComplete }) {
 
   return (
     <aside
-      className={`fixed inset-0 z-50 bg-black flex flex-col justify-between p-6 sm:p-10 lg:p-12 transition-all duration-700 select-none overflow-hidden ${
-        isFading ? 'opacity-0 scale-105 pointer-events-none' : 'opacity-100 scale-100'
-      }`}
+      className={`fixed inset-0 z-50 bg-black flex flex-col justify-between p-6 sm:p-10 lg:p-12 transition-all duration-700 select-none overflow-hidden ${isFading ? 'opacity-0 scale-105 pointer-events-none' : 'opacity-100 scale-100'
+        }`}
       aria-label="System Initializing"
     >
       {/* 1. Photorealistic Cosmic Horizon & Mountain Backdrop */}
@@ -111,71 +95,80 @@ export default function Loader({ onComplete }) {
         </div>
       </div>
 
-      {/* 4. Center-Bottom Telemetry & Progress Dashboard */}
-      <div className="relative z-20 w-full max-w-xl mx-auto flex flex-col items-center text-center space-y-4 my-auto pb-4">
-        {/* Monogram Brand Header */}
-        <div className="flex flex-col items-center space-y-2">
-          {/* Glowing Minimalist Diamond Icon */}
-          <div className="w-10 h-10 rounded-2xl bg-neutral-900/90 border border-white/20 backdrop-blur-xl flex items-center justify-center shadow-[0_0_25px_rgba(255,255,255,0.25)] mb-1">
-            <svg
-              className="w-4 h-4 text-white fill-current animate-pulse"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path d="M12 2L22 12L12 22L2 12Z" />
-            </svg>
-          </div>
+      {/* 4. Center Brand & Circular Progress Loader */}
+      <div className="relative z-20 w-full max-w-md mx-auto flex flex-col items-center text-center space-y-6 my-auto pb-6">
+        {/* Name — Clean & Minimalist */}
+        <h1 className="font-mono text-3xl sm:text-5xl font-black tracking-widest text-white drop-shadow-[0_0_25px_rgba(255,255,255,0.35)] uppercase">
+          LOKESH V
+        </h1>
 
-          <h1 className="font-mono text-2xl sm:text-4xl font-black tracking-tight text-white drop-shadow-md">
-            LOKESH V
-          </h1>
-          <p className="font-mono text-[10px] sm:text-xs tracking-widest text-neutral-300 uppercase">
-            SPATIAL COMPUTING // AI SYSTEMS // INTERFACE ARCHITECTURE
-          </p>
-        </div>
+        {/* Circular Progress Gauge */}
+        <div className="relative w-32 h-32 sm:w-36 sm:h-36 flex items-center justify-center my-2">
+          {/* Subtle Ambient Radial Glow */}
+          <div
+            className="absolute inset-0 rounded-full blur-xl opacity-40 transition-opacity duration-500 pointer-events-none"
+            style={{
+              background: 'radial-gradient(circle, rgba(255,255,255,0.35) 0%, rgba(0,240,255,0.18) 50%, transparent 70%)'
+            }}
+          />
 
-        {/* Progress Gauge & Live Subsystem Module Log */}
-        <div className="w-full space-y-2.5 pt-1">
-          <div className="flex items-center justify-between font-mono text-[11px] text-neutral-400">
-            <span className="tracking-wider truncate max-w-[80%] text-neutral-300 font-medium">
-              {statusText}
-            </span>
-            <span className="font-bold text-white pl-4 font-mono text-sm tracking-widest text-accent-cyan">
-              {String(progress).padStart(2, '0')}%
-            </span>
-          </div>
-
-          {/* Dual Precision Progress Bar */}
-          <div className="w-full h-[3px] bg-white/10 rounded-full overflow-hidden relative backdrop-blur-md">
-            <div
-              className="h-full bg-white transition-all duration-100 ease-out shadow-[0_0_15px_rgba(255,255,255,0.9)]"
-              style={{ width: `${progress}%` }}
+          {/* SVG Circular Progress Ring */}
+          <svg className="w-full h-full -rotate-90 transform" viewBox="0 0 120 120">
+            {/* Outer subtle orbital dashed ring */}
+            <circle
+              cx="60"
+              cy="60"
+              r="55"
+              className="text-white/10 stroke-current"
+              strokeWidth="1"
+              strokeDasharray="4 6"
+              fill="transparent"
             />
-          </div>
 
-          {/* Micro Telemetry Ticks */}
-          <div className="flex justify-between items-center w-full px-0.5 opacity-40">
-            {[0, 25, 50, 75, 100].map((t) => (
-              <span key={t} className="font-mono text-[8px] text-neutral-400">
-                |
-              </span>
-            ))}
+            {/* Background Track Circle */}
+            <circle
+              cx="60"
+              cy="60"
+              r="48"
+              className="text-white/15 stroke-current"
+              strokeWidth="3.5"
+              fill="transparent"
+            />
+
+            {/* Active Animated Progress Circle */}
+            <circle
+              cx="60"
+              cy="60"
+              r="48"
+              className="text-white stroke-current transition-all duration-100 ease-out"
+              strokeWidth="3.5"
+              strokeDasharray={2 * Math.PI * 48}
+              strokeDashoffset={2 * Math.PI * 48 - (progress / 100) * (2 * Math.PI * 48)}
+              strokeLinecap="round"
+              fill="transparent"
+              style={{
+                filter: 'drop-shadow(0 0 10px rgba(255, 255, 255, 0.9))'
+              }}
+            />
+          </svg>
+
+          {/* Center Content: Live Percentage */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <span className="font-mono text-2xl sm:text-3xl font-black text-white tracking-wider">
+              {progress}
+              <span className="text-xs sm:text-sm font-normal text-neutral-400 font-mono">%</span>
+            </span>
           </div>
         </div>
 
-        {/* Dynamic Action Area: Progressing vs Ready to Explore */}
-        {!isReady ? (
-          <div className="pt-2 flex items-center gap-2 font-mono text-[10px] text-neutral-500 uppercase tracking-widest">
-            <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan animate-pulse" />
-            <span>CALIBRATING 3D SPATIAL UNIVERSE...</span>
-          </div>
-        ) : (
-          <div className="pt-3 flex flex-col items-center gap-2 animate-in fade-in zoom-in-95 duration-500">
+        {/* Dynamic Action Area: EXPLORE Button once 100% Ready */}
+        {isReady && (
+          <div className="pt-2 flex flex-col items-center gap-2 animate-in fade-in zoom-in-95 duration-500">
             {/* Master-level Glowing EXPLORE Button */}
             <button
               id="loader-explore-button"
               onClick={handleExplore}
-              className="group relative inline-flex items-center gap-3 px-9 py-3.5 rounded-full bg-white text-black font-mono font-black text-xs sm:text-sm tracking-widest uppercase hover:bg-neutral-100 shadow-[0_0_35px_rgba(255,255,255,0.8)] hover:shadow-[0_0_55px_rgba(255,255,255,1.0)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
+              className="group relative inline-flex items-center gap-3 px-9 py-3.5 rounded-full bg-white text-black font-mono font-black text-xs sm:text-sm tracking-widest uppercase hover:bg-neutral-100 shadow-[0_0_35px_rgba(255,255,255,0.85)] hover:shadow-[0_0_55px_rgba(255,255,255,1.0)] hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
             >
               <span>EXPLORE</span>
               <div className="w-5 h-5 rounded-full bg-black text-white flex items-center justify-center group-hover:translate-x-1 transition-transform">
