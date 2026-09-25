@@ -89,8 +89,12 @@ export default function Contact() {
 
         {/* Bottom-Left Lunar/Mountain Terrain Texture Blend */}
         <div
-          className="absolute bottom-0 left-0 w-full sm:w-2/3 h-72 sm:h-96 opacity-45 bg-cover bg-bottom pointer-events-none mix-blend-multiply"
-          style={{ backgroundImage: "url('/mountain-bg-bw.jpg')" }}
+          className="absolute bottom-0 left-0 w-full sm:w-1/2 h-44 sm:h-56 opacity-25 bg-cover bg-bottom pointer-events-none mix-blend-multiply"
+          style={{
+            backgroundImage: "url('/mountain-bg-bw.jpg')",
+            maskImage: 'linear-gradient(to top, black 20%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to top, black 20%, transparent 100%)'
+          }}
         />
 
         {/* Top-Right Celestial Horizon Texture Blend */}
@@ -110,7 +114,7 @@ export default function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
           {/* =============================================================== */}
-          {/* LEFT COLUMN: Headings, 4 Info Cards, Socials, & Script Sign-off  */}
+          {/* LEFT COLUMN: Headings, 3 Info Cards, Socials, & Script Sign-off  */}
           {/* =============================================================== */}
           <div className="lg:col-span-6 space-y-8 sm:space-y-10">
             
@@ -139,73 +143,69 @@ export default function Contact() {
               </p>
             </div>
 
-            {/* 4 Contact Information Cards (2x2 Grid) */}
+            {/* 3 Contact Information Cards (Email & Phone side-by-side, Location full-width) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl">
               
               {/* Card 1: EMAIL */}
               <a
                 href={`mailto:${directEmail}`}
-                className="p-4 sm:p-4.5 rounded-2xl bg-[#EAEAEB]/90 hover:bg-[#E2E2E4] border border-black/10 transition-all shadow-sm flex items-center gap-3.5 group"
+                className="p-4 sm:p-5 rounded-2xl bg-[#EAEAEB]/90 hover:bg-[#E2E2E4] border border-black/10 transition-all shadow-sm flex items-center justify-between group"
               >
-                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-neutral-900 flex-shrink-0 shadow-xs group-hover:scale-105 transition-transform">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div className="min-w-0">
-                  <div className="font-mono text-[10px] font-bold text-neutral-500 uppercase tracking-widest">
-                    EMAIL
+                <div className="flex items-center gap-3.5 min-w-0">
+                  <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-neutral-900 flex-shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                    <Mail className="w-5 h-5" />
                   </div>
-                  <div className="font-sans text-xs sm:text-sm font-bold text-neutral-900 truncate">
-                    {directEmail}
+                  <div className="min-w-0">
+                    <div className="font-mono text-[10px] font-bold text-neutral-500 uppercase tracking-widest">
+                      EMAIL
+                    </div>
+                    <div className="font-sans text-xs sm:text-sm font-bold text-neutral-900 truncate">
+                      {directEmail}
+                    </div>
                   </div>
                 </div>
+                <ArrowUpRight className="w-4 h-4 text-neutral-400 group-hover:text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0 ml-1.5" />
               </a>
 
               {/* Card 2: PHONE */}
               <a
                 href={`tel:${directPhone.replace(/\s+/g, '')}`}
-                className="p-4 sm:p-4.5 rounded-2xl bg-[#EAEAEB]/90 hover:bg-[#E2E2E4] border border-black/10 transition-all shadow-sm flex items-center gap-3.5 group"
+                className="p-4 sm:p-5 rounded-2xl bg-[#EAEAEB]/90 hover:bg-[#E2E2E4] border border-black/10 transition-all shadow-sm flex items-center justify-between group"
               >
-                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-neutral-900 flex-shrink-0 shadow-xs group-hover:scale-105 transition-transform">
-                  <Phone className="w-5 h-5" />
-                </div>
-                <div className="min-w-0">
-                  <div className="font-mono text-[10px] font-bold text-neutral-500 uppercase tracking-widest">
-                    PHONE
+                <div className="flex items-center gap-3.5 min-w-0">
+                  <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-neutral-900 flex-shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                    <Phone className="w-5 h-5" />
                   </div>
-                  <div className="font-sans text-xs sm:text-sm font-bold text-neutral-900 truncate">
-                    {directPhone}
+                  <div className="min-w-0">
+                    <div className="font-mono text-[10px] font-bold text-neutral-500 uppercase tracking-widest">
+                      PHONE
+                    </div>
+                    <div className="font-sans text-xs sm:text-sm font-bold text-neutral-900">
+                      {directPhone}
+                    </div>
                   </div>
                 </div>
+                <ArrowUpRight className="w-4 h-4 text-neutral-400 group-hover:text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0 ml-1.5" />
               </a>
 
-              {/* Card 3: LOCATION */}
-              <div className="p-4 sm:p-4.5 rounded-2xl bg-[#EAEAEB]/90 border border-black/10 flex items-center gap-3.5 shadow-sm">
-                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-neutral-900 flex-shrink-0 shadow-xs">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <div className="min-w-0">
-                  <div className="font-mono text-[10px] font-bold text-neutral-500 uppercase tracking-widest">
-                    LOCATION
+              {/* Card 3: LOCATION (Spans full width across both columns so it never truncates!) */}
+              <div className="sm:col-span-2 p-4 sm:p-5 rounded-2xl bg-[#EAEAEB]/90 border border-black/10 flex items-center justify-between shadow-sm">
+                <div className="flex items-center gap-3.5 min-w-0">
+                  <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-neutral-900 flex-shrink-0 shadow-xs">
+                    <MapPin className="w-5 h-5" />
                   </div>
-                  <div className="font-sans text-xs sm:text-sm font-bold text-neutral-900 truncate">
-                    Coimbatore, Tamil Nadu, India
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 4: AVAILABILITY */}
-              <div className="p-4 sm:p-4.5 rounded-2xl bg-[#EAEAEB]/90 border border-black/10 flex items-center gap-3.5 shadow-sm">
-                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-neutral-900 flex-shrink-0 shadow-xs">
-                  <Calendar className="w-5 h-5" />
-                </div>
-                <div className="min-w-0">
-                  <div className="font-mono text-[10px] font-bold text-neutral-500 uppercase tracking-widest">
-                    AVAILABILITY
-                  </div>
-                  <div className="font-sans text-xs sm:text-sm font-bold text-neutral-900 truncate">
-                    Open to Internships & Opportunities
+                  <div>
+                    <div className="font-mono text-[10px] font-bold text-neutral-500 uppercase tracking-widest">
+                      LOCATION
+                    </div>
+                    <div className="font-sans text-xs sm:text-sm font-bold text-neutral-900">
+                      Coimbatore, Tamil Nadu, India
+                    </div>
                   </div>
                 </div>
+                <span className="hidden sm:inline-flex items-center px-3 py-1 rounded-full bg-white/70 border border-black/5 font-mono text-[10px] text-neutral-600 font-semibold tracking-wider">
+                  UTC +5:30
+                </span>
               </div>
 
             </div>
