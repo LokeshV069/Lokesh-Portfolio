@@ -7,8 +7,6 @@ import About from './sections/About';
 import Projects from './sections/Projects';
 import SpatialLab from './sections/SpatialLab';
 import Skills from './sections/Skills';
-import DesignSection from './sections/DesignSection';
-import Achievements from './sections/Achievements';
 import Contact from './sections/Contact';
 import Footer from './sections/Footer';
 import ProjectModal from './components/ProjectModal';
@@ -51,12 +49,6 @@ export default function App() {
 
         {/* TECHNICAL ARSENAL / SKILLS */}
         <Skills />
-
-        {/* INTERACTION DESIGN / UI/UX GALLERY */}
-        <DesignSection />
-
-        {/* ACTIVITY LOG & ACHIEVEMENTS */}
-        <Achievements />
 
         {/* DIRECT TRANSMISSION / CONTACT */}
         <Contact />

@@ -129,9 +129,6 @@ export default function Projects({ onOpenCaseStudy }) {
               <span className="w-2 h-2 rounded-full bg-white inline-block -ml-2.5 shadow-[0_0_8px_white]" />
               <span className="pl-1">01 PROJECTS</span>
             </div>
-            <div className="pl-4 text-neutral-400 hover:text-white transition-colors cursor-pointer">
-              <span>02 ACHIEVEMENTS</span>
-            </div>
           </div>
 
           {/* Core Content: Header + Filter Pills + Project Cards Grid */}
