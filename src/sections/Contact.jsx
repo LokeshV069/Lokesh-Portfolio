@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Mail,
   Phone,
@@ -12,6 +12,7 @@ import {
   ArrowUpRight,
   Box,
   Check,
+  Copy,
   Quote
 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon, XIcon, InstagramIcon } from '../components/Icons';
@@ -27,9 +28,52 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [copiedKey, setCopiedKey] = useState(null);
+  const [currentTimeIST, setCurrentTimeIST] = useState('');
 
   const directEmail = 'lokesh.valmeeki@gmail.com';
-  const directPhone = '+91 98765 43210';
+  const directPhone = '+91 88380 47271';
+
+  // Live IST Clock update for Coimbatore
+  useEffect(() => {
+    const updateTime = () => {
+      try {
+        const timeStr = new Intl.DateTimeFormat('en-US', {
+          timeZone: 'Asia/Kolkata',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true
+        }).format(new Date());
+        setCurrentTimeIST(timeStr);
+      } catch (err) {
+        setCurrentTimeIST('03:45 PM');
+      }
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleCopy = (e, text, key) => {
+    e.preventDefault();
+    e.stopPropagation();
+    try {
+      navigator.clipboard?.writeText(text);
+    } catch (err) {
+      // Fallback
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+    }
+    setCopiedKey(key);
+    audioEngine.playClickChime();
+    setTimeout(() => {
+      setCopiedKey((curr) => (curr === key ? null : curr));
+    }, 2500);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -150,63 +194,154 @@ export default function Contact() {
               {/* Card 1: EMAIL */}
               <a
                 href={`mailto:${directEmail}`}
-                className="p-4 sm:p-5 rounded-2xl bg-[#EAEAEB]/90 hover:bg-[#E2E2E4] border border-black/10 transition-all shadow-sm flex items-center justify-between group"
+                onMouseEnter={() => audioEngine.playHoverTone()}
+                className="relative p-4 sm:p-5 rounded-2xl bg-white/85 hover:bg-white border border-neutral-300/80 hover:border-neutral-900/30 backdrop-blur-md shadow-xs hover:shadow-xl hover:shadow-black/5 transition-all duration-300 ease-out hover:-translate-y-1 active:scale-[0.99] flex items-center justify-between group overflow-hidden"
               >
-                <div className="flex items-center gap-3.5 min-w-0">
-                  <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-neutral-900 flex-shrink-0 shadow-xs group-hover:scale-105 transition-transform">
-                    <Mail className="w-5 h-5" />
+                {/* Specular sheen beam animation on hover */}
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/50 to-transparent pointer-events-none" />
+
+                <div className="flex items-center gap-3.5 min-w-0 z-10">
+                  <div className="w-11 h-11 rounded-xl bg-neutral-100 group-hover:bg-neutral-950 text-neutral-800 group-hover:text-white border border-black/5 flex items-center justify-center flex-shrink-0 shadow-2xs group-hover:shadow-md transition-all duration-300">
+                    <Mail className="w-5 h-5 group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-300" />
                   </div>
                   <div className="min-w-0">
-                    <div className="font-mono text-[10px] font-bold text-neutral-500 uppercase tracking-widest">
-                      EMAIL
+                    <div className="font-mono text-[10px] font-bold text-neutral-500 uppercase tracking-widest flex items-center gap-1.5">
+                      <span>EMAIL</span>
                     </div>
-                    <div className="font-sans text-xs sm:text-sm font-bold text-neutral-900 truncate">
+                    <div className="font-sans text-xs sm:text-sm font-bold text-neutral-900 truncate group-hover:text-black">
                       {directEmail}
                     </div>
                   </div>
                 </div>
-                <ArrowUpRight className="w-4 h-4 text-neutral-400 group-hover:text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0 ml-1.5" />
+
+                {/* Right Action Cluster: Copy Button + Direct Link Arrow */}
+                <div className="flex items-center gap-1.5 z-10 flex-shrink-0 ml-2">
+                  <button
+                    type="button"
+                    onClick={(e) => handleCopy(e, directEmail, 'email')}
+                    onMouseEnter={(e) => {
+                      e.stopPropagation();
+                      audioEngine.playHoverTone();
+                    }}
+                    title={copiedKey === 'email' ? 'Copied!' : 'Copy Email'}
+                    aria-label="Copy Email address"
+                    className={`relative p-2 rounded-xl border transition-all duration-200 ${
+                      copiedKey === 'email'
+                        ? 'bg-emerald-50 border-emerald-300 text-emerald-600 scale-105 shadow-xs'
+                        : 'bg-white/90 hover:bg-neutral-100 border-neutral-200 text-neutral-500 hover:text-black hover:scale-105'
+                    }`}
+                  >
+                    {copiedKey === 'email' ? (
+                      <Check className="w-3.5 h-3.5 stroke-[2.5] text-emerald-600" />
+                    ) : (
+                      <Copy className="w-3.5 h-3.5" />
+                    )}
+                    {copiedKey === 'email' && (
+                      <span className="absolute -top-7 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-md bg-neutral-950 text-white font-mono text-[9px] font-bold tracking-wider uppercase shadow-md whitespace-nowrap">
+                        Copied!
+                      </span>
+                    )}
+                  </button>
+
+                  <div className="w-8 h-8 rounded-xl bg-neutral-100/90 group-hover:bg-neutral-950 text-neutral-400 group-hover:text-white flex items-center justify-center transition-all duration-300">
+                    <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+                  </div>
+                </div>
               </a>
 
               {/* Card 2: PHONE */}
               <a
                 href={`tel:${directPhone.replace(/\s+/g, '')}`}
-                className="p-4 sm:p-5 rounded-2xl bg-[#EAEAEB]/90 hover:bg-[#E2E2E4] border border-black/10 transition-all shadow-sm flex items-center justify-between group"
+                onMouseEnter={() => audioEngine.playHoverTone()}
+                className="relative p-4 sm:p-5 rounded-2xl bg-white/85 hover:bg-white border border-neutral-300/80 hover:border-neutral-900/30 backdrop-blur-md shadow-xs hover:shadow-xl hover:shadow-black/5 transition-all duration-300 ease-out hover:-translate-y-1 active:scale-[0.99] flex items-center justify-between group overflow-hidden"
               >
-                <div className="flex items-center gap-3.5 min-w-0">
-                  <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-neutral-900 flex-shrink-0 shadow-xs group-hover:scale-105 transition-transform">
-                    <Phone className="w-5 h-5" />
+                {/* Specular sheen beam animation on hover */}
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/50 to-transparent pointer-events-none" />
+
+                <div className="flex items-center gap-3.5 min-w-0 z-10">
+                  <div className="w-11 h-11 rounded-xl bg-neutral-100 group-hover:bg-neutral-950 text-neutral-800 group-hover:text-white border border-black/5 flex items-center justify-center flex-shrink-0 shadow-2xs group-hover:shadow-md transition-all duration-300">
+                    <Phone className="w-5 h-5 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300" />
                   </div>
                   <div className="min-w-0">
-                    <div className="font-mono text-[10px] font-bold text-neutral-500 uppercase tracking-widest">
-                      PHONE
+                    <div className="font-mono text-[10px] font-bold text-neutral-500 uppercase tracking-widest flex items-center gap-1.5">
+                      <span>PHONE</span>
                     </div>
-                    <div className="font-sans text-xs sm:text-sm font-bold text-neutral-900">
+                    <div className="font-sans text-xs sm:text-sm font-bold text-neutral-900 truncate group-hover:text-black">
                       {directPhone}
                     </div>
                   </div>
                 </div>
-                <ArrowUpRight className="w-4 h-4 text-neutral-400 group-hover:text-black group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all flex-shrink-0 ml-1.5" />
+
+                {/* Right Action Cluster: Copy Button + Direct Call Arrow */}
+                <div className="flex items-center gap-1.5 z-10 flex-shrink-0 ml-2">
+                  <button
+                    type="button"
+                    onClick={(e) => handleCopy(e, directPhone, 'phone')}
+                    onMouseEnter={(e) => {
+                      e.stopPropagation();
+                      audioEngine.playHoverTone();
+                    }}
+                    title={copiedKey === 'phone' ? 'Copied!' : 'Copy Phone Number'}
+                    aria-label="Copy phone number"
+                    className={`relative p-2 rounded-xl border transition-all duration-200 ${
+                      copiedKey === 'phone'
+                        ? 'bg-emerald-50 border-emerald-300 text-emerald-600 scale-105 shadow-xs'
+                        : 'bg-white/90 hover:bg-neutral-100 border-neutral-200 text-neutral-500 hover:text-black hover:scale-105'
+                    }`}
+                  >
+                    {copiedKey === 'phone' ? (
+                      <Check className="w-3.5 h-3.5 stroke-[2.5] text-emerald-600" />
+                    ) : (
+                      <Copy className="w-3.5 h-3.5" />
+                    )}
+                    {copiedKey === 'phone' && (
+                      <span className="absolute -top-7 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-md bg-neutral-950 text-white font-mono text-[9px] font-bold tracking-wider uppercase shadow-md whitespace-nowrap">
+                        Copied!
+                      </span>
+                    )}
+                  </button>
+
+                  <div className="w-8 h-8 rounded-xl bg-neutral-100/90 group-hover:bg-neutral-950 text-neutral-400 group-hover:text-white flex items-center justify-center transition-all duration-300">
+                    <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+                  </div>
+                </div>
               </a>
 
               {/* Card 3: LOCATION (Spans full width across both columns so it never truncates!) */}
-              <div className="sm:col-span-2 p-4 sm:p-5 rounded-2xl bg-[#EAEAEB]/90 border border-black/10 flex items-center justify-between shadow-sm">
-                <div className="flex items-center gap-3.5 min-w-0">
-                  <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-neutral-900 flex-shrink-0 shadow-xs">
-                    <MapPin className="w-5 h-5" />
+              <div
+                onMouseEnter={() => audioEngine.playHoverTone()}
+                className="relative sm:col-span-2 p-4 sm:p-5 rounded-2xl bg-white/85 hover:bg-white border border-neutral-300/80 hover:border-neutral-900/30 backdrop-blur-md shadow-xs hover:shadow-xl hover:shadow-black/5 transition-all duration-300 ease-out hover:-translate-y-1 group overflow-hidden flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+              >
+                {/* Specular sheen beam animation on hover */}
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/50 to-transparent pointer-events-none" />
+
+                <div className="flex items-center gap-3.5 min-w-0 z-10">
+                  <div className="w-11 h-11 rounded-xl bg-neutral-100 group-hover:bg-neutral-950 text-neutral-800 group-hover:text-white border border-black/5 flex items-center justify-center flex-shrink-0 shadow-2xs group-hover:shadow-md transition-all duration-300">
+                    <MapPin className="w-5 h-5 group-hover:scale-110 group-hover:-translate-y-0.5 transition-transform duration-300" />
                   </div>
                   <div>
-                    <div className="font-mono text-[10px] font-bold text-neutral-500 uppercase tracking-widest">
-                      LOCATION
+                    <div className="font-mono text-[10px] font-bold text-neutral-500 uppercase tracking-widest flex items-center gap-2">
+                      <span>LOCATION</span>
+                      <span className="text-neutral-300">•</span>
+                      <span className="text-neutral-500 font-normal">Remote / Hybrid Worldwide</span>
                     </div>
-                    <div className="font-sans text-xs sm:text-sm font-bold text-neutral-900">
+                    <div className="font-sans text-xs sm:text-sm font-bold text-neutral-900 group-hover:text-black">
                       Coimbatore, Tamil Nadu, India
                     </div>
                   </div>
                 </div>
-                <span className="hidden sm:inline-flex items-center px-3 py-1 rounded-full bg-white/70 border border-black/5 font-mono text-[10px] text-neutral-600 font-semibold tracking-wider">
-                  UTC +5:30
-                </span>
+
+                {/* Live IST Local Time Beacon Badge */}
+                <div className="z-10 flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-neutral-100/90 border border-neutral-200/80 shadow-2xs group-hover:border-neutral-300 transition-colors">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                  </span>
+                  <div className="flex items-center gap-1.5 font-mono text-[11px] font-semibold text-neutral-800">
+                    <span>{currentTimeIST || '03:45 PM'}</span>
+                    <span className="text-neutral-400 text-[10px]">IST (UTC +5:30)</span>
+                  </div>
+                </div>
               </div>
 
             </div>

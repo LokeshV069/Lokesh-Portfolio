@@ -83,6 +83,7 @@ export default function ResumeModal({ isOpen, onClose }) {
             </div>
             <div className="font-mono text-xs text-neutral-400 space-y-1 sm:text-right">
               <div>lokesh.valmeeki@gmail.com</div>
+              <div>+91 88380 47271</div>
               <div>Coimbatore, Tamil Nadu, India</div>
               <div>github.com/lokeshv-dev</div>
             </div>

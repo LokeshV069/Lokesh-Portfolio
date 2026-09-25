@@ -26,6 +26,7 @@ export const PROFILE_INFO = {
   institution: 'SNS College of Engineering',
   location: 'Coimbatore, India',
   email: 'lokesh.valmeeki@gmail.com',
+  phone: '+91 88380 47271',
   status: 'Available for Engineering Roles & Collaborative Ventures',
   tagline: 'Building at the intersection of Code × Design × Spatial Computing'
 };
