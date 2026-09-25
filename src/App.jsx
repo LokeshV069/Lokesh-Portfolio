@@ -11,6 +11,10 @@ import Contact from './sections/Contact';
 import Footer from './sections/Footer';
 import ProjectModal from './components/ProjectModal';
 import ResumeModal from './components/ResumeModal';
+import PageTransition from './components/PageTransition';
+import ScrollProgress from './components/ScrollProgress';
+import { useScrollReveal } from './hooks/useScrollReveal';
+import { audioEngine } from './utils/audioEngine';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,25 +22,81 @@ export default function App() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [resumeOpen, setResumeOpen] = useState(false);
 
+  // Initialize master-level scroll reveal observer
+  useScrollReveal();
+
+  // Page Transition Warp State
+  const [transitionState, setTransitionState] = useState({
+    active: false,
+    label: '',
+    num: ''
+  });
+
+  const sectionMeta = {
+    '#home': { label: 'HOME', num: '01' },
+    '#about': { label: 'ABOUT ME', num: '02' },
+    '#projects': { label: 'PROJECTS', num: '03' },
+    '#lab': { label: '3D PRIMITIVES LAB', num: '04' },
+    '#skills': { label: 'SKILLS & TECH', num: '05' },
+    '#contact': { label: 'DIRECT TRANSMISSION', num: '06' }
+  };
+
+  const handleNavigate = (href) => {
+    const meta = sectionMeta[href] || { label: href.replace('#', '').toUpperCase(), num: '00' };
+
+    audioEngine.playClickChime();
+
+    // Trigger cinematic warp shutter
+    setTransitionState({
+      active: true,
+      label: meta.label,
+      num: meta.num
+    });
+
+    // In 240ms (when shutter panels are closed at center), scroll seamlessly
+    setTimeout(() => {
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'auto' });
+      }
+    }, 240);
+
+    // End transition in 620ms
+    setTimeout(() => {
+      setTransitionState({ active: false, label: '', num: '' });
+    }, 620);
+  };
+
   return (
     <div className="relative min-h-screen bg-black text-[#F5F5F5] selection:bg-white selection:text-black">
       {/* 1. Intro Transition & System Boot sequence */}
       {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
 
-      {/* 2. Global Fixed Floating Pill Navigation */}
+      {/* 2. Top Laser Progress Bar & Floating Section HUD */}
+      <ScrollProgress onNavigate={handleNavigate} />
+
+      {/* 3. Cinematic Warp Shutter Transition Overlay */}
+      <PageTransition
+        isTransitioning={transitionState.active}
+        targetLabel={transitionState.label}
+        targetNum={transitionState.num}
+      />
+
+      {/* 4. Global Fixed Floating Pill Navigation */}
       <Navbar
         onOpenResume={() => setResumeOpen(true)}
         soundEnabled={soundEnabled}
         setSoundEnabled={setSoundEnabled}
+        onNavigate={handleNavigate}
       />
 
-      {/* 4. Right-side Floating Social Dock */}
+      {/* 5. Right-side Floating Social Dock */}
       <SocialDock soundEnabled={soundEnabled} setSoundEnabled={setSoundEnabled} />
 
-      {/* 5. Main Narrative Content Flow */}
+      {/* 6. Main Narrative Content Flow */}
       <main id="main-content" className="w-full overflow-x-hidden">
         {/* HERO SECTION */}
-        <Hero onOpenResume={() => setResumeOpen(true)} />
+        <Hero onOpenResume={() => setResumeOpen(true)} onNavigate={handleNavigate} />
 
         {/* ABOUT SECTION (Who is Lokesh?) */}
         <About />
@@ -54,10 +114,10 @@ export default function App() {
         <Contact />
       </main>
 
-      {/* 6. Large Editorial Footer */}
-      <Footer onOpenResume={() => setResumeOpen(true)} />
+      {/* 7. Large Editorial Footer */}
+      <Footer onOpenResume={() => setResumeOpen(true)} onNavigate={handleNavigate} />
 
-      {/* 7. Full-Screen Case Study Modal */}
+      {/* 8. Full-Screen Case Study Modal */}
       {selectedProject && (
         <ProjectModal
           project={selectedProject}
@@ -66,7 +126,7 @@ export default function App() {
         />
       )}
 
-      {/* 8. Full-Screen Printable Resume Modal */}
+      {/* 9. Full-Screen Printable Resume Modal */}
       <ResumeModal
         isOpen={resumeOpen}
         onClose={() => setResumeOpen(false)}

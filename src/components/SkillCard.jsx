@@ -28,11 +28,13 @@ const LOGO_MAP = {
 export default function SkillCard({ skill }) {
   const isLight = skill.theme === 'light';
   const LogoComponent = LOGO_MAP[skill.logoKey] || PythonLogo;
+  const staggerNum = skill.id ? parseInt(skill.id, 10) : 1;
+  const staggerClass = `stagger-${Math.min(8, Math.max(1, staggerNum))}`;
 
   return (
     <div
       onMouseEnter={() => audioEngine.playHoverTone()}
-      className={`group relative rounded-2xl p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 select-none ${
+      className={`group relative rounded-2xl p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 select-none reveal-init reveal-pop ${staggerClass} ${
         isLight
           ? 'bg-white/95 text-neutral-900 border border-neutral-200/90 shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.12)] hover:border-neutral-400 backdrop-blur-md'
           : 'bg-[#0e0e12]/95 text-white border border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.6)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.85)] hover:border-white/25 backdrop-blur-md'

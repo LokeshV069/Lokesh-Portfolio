@@ -135,7 +135,7 @@ export default function Projects({ onOpenCaseStudy }) {
           <div className="flex-1 w-full">
             
             {/* Header Area */}
-            <div className="max-w-3xl mb-8">
+            <div className="max-w-3xl mb-8 reveal-init reveal-slide-up">
               <div className="font-mono text-xs tracking-widest text-accent-cyan font-semibold mb-1">
                 // MY WORK
               </div>
@@ -156,7 +156,7 @@ export default function Projects({ onOpenCaseStudy }) {
             </div>
 
             {/* Filter Pills Navigation */}
-            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 mb-10">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 mb-10 reveal-init reveal-fade stagger-1">
               {filters.map((filter) => {
                 const isActive = activeFilter === filter;
                 return (

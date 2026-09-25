@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import HeroScene from '../three/HeroScene';
 import { audioEngine } from '../utils/audioEngine';
 
-export default function Hero({ onOpenResume }) {
+export default function Hero({ onOpenResume, onNavigate }) {
   const [portraitLoaded, setPortraitLoaded] = useState(false);
 
   // 3D Card Tilt State
@@ -41,16 +41,24 @@ export default function Hero({ onOpenResume }) {
 
   const scrollToWorks = (e) => {
     e.preventDefault();
-    audioEngine.playClickChime();
-    const el = document.getElementById('projects');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (onNavigate) {
+      onNavigate('#projects');
+    } else {
+      audioEngine.playClickChime();
+      const el = document.getElementById('projects');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const scrollToContact = (e) => {
     e.preventDefault();
-    audioEngine.playClickChime();
-    const el = document.getElementById('contact');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    if (onNavigate) {
+      onNavigate('#contact');
+    } else {
+      audioEngine.playClickChime();
+      const el = document.getElementById('contact');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (

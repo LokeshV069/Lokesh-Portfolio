@@ -3,10 +3,14 @@ import { ArrowUp, Mail, ExternalLink } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../components/Icons';
 import { audioEngine } from '../utils/audioEngine';
 
-export default function Footer({ onOpenResume }) {
+export default function Footer({ onOpenResume, onNavigate }) {
   const scrollToTop = () => {
-    audioEngine.playClickChime();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (onNavigate) {
+      onNavigate('#home');
+    } else {
+      audioEngine.playClickChime();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const navLinks = [
@@ -110,9 +114,13 @@ export default function Footer({ onOpenResume }) {
                   onMouseEnter={() => audioEngine.playHoverTone()}
                   onClick={(e) => {
                     e.preventDefault();
-                    audioEngine.playClickChime();
-                    const el = document.querySelector(item.href);
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    if (onNavigate) {
+                      onNavigate(item.href);
+                    } else {
+                      audioEngine.playClickChime();
+                      const el = document.querySelector(item.href);
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }
                   }}
                   className="hover:text-white transition-colors"
                 >

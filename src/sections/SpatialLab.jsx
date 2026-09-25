@@ -141,7 +141,7 @@ export default function SpatialLab() {
       <div className="max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 relative z-10 space-y-6">
         
         {/* TOP BAR OF 3D PRIMITIVES MODULE (Matching Screenshot) */}
-        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-xl">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-xl reveal-init reveal-slide-down">
           
           {/* Module Logo & Title */}
           <div className="flex items-center gap-3.5 self-start md:self-auto">
@@ -213,7 +213,7 @@ export default function SpatialLab() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           
           {/* LEFT PANEL: RUNTIME CONTROLS (White / Light High-Contrast Studio Chassis) */}
-          <div className="lg:col-span-4 xl:col-span-3 bg-[#F8F9FA] text-black rounded-3xl p-6 sm:p-7 shadow-2xl border border-neutral-200/90 space-y-6">
+          <div className="lg:col-span-4 xl:col-span-3 bg-[#F8F9FA] text-black rounded-3xl p-6 sm:p-7 shadow-2xl border border-neutral-200/90 space-y-6 reveal-init reveal-slide-left stagger-1">
             
             {/* Header: Runtime Controls + SYS Active */}
             <div className="flex items-center justify-between pb-3 border-b border-neutral-200">
@@ -409,7 +409,7 @@ export default function SpatialLab() {
           {/* RIGHT PANEL: 3D VIEWPORT WITH TOP & BOTTOM HUDS (Matching Screenshot) */}
           <div
             ref={viewportContainerRef}
-            className="lg:col-span-8 xl:col-span-9 bg-[#0B0D10] rounded-3xl border border-white/15 overflow-hidden shadow-2xl flex flex-col justify-between"
+            className="lg:col-span-8 xl:col-span-9 bg-[#0B0D10] rounded-3xl border border-white/15 overflow-hidden shadow-2xl flex flex-col justify-between reveal-init reveal-scale stagger-2"
           >
             {/* 1. TOP HUD STATUS BAR */}
             <div className="px-5 py-3.5 bg-black/60 backdrop-blur-md border-b border-white/10 flex flex-wrap items-center justify-between font-mono text-[10px] text-neutral-400 gap-3">

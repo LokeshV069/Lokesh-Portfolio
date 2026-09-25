@@ -8,13 +8,16 @@ export default function ProjectCard({ project, onOpenCaseStudy }) {
     onOpenCaseStudy(project);
   };
 
+  const staggerNum = project.number ? parseInt(project.number, 10) : 1;
+  const staggerClass = `stagger-${Math.min(8, Math.max(1, staggerNum))}`;
+
   // 1. Featured Wide Card Layout (Card 05: WealthPilot AI)
   if (project.featured) {
     return (
       <article
         onClick={handleCardClick}
         onMouseEnter={() => audioEngine.playHoverTone()}
-        className="group md:col-span-2 lg:col-span-2 relative rounded-2xl bg-[#0C0C0D] border border-white/10 hover:border-white/25 shadow-2xl transition-all duration-300 p-5 sm:p-7 flex flex-col justify-between overflow-hidden cursor-pointer hover:-translate-y-1"
+        className={`group md:col-span-2 lg:col-span-2 relative rounded-2xl bg-[#0C0C0D] border border-white/10 hover:border-white/25 shadow-2xl transition-all duration-300 p-5 sm:p-7 flex flex-col justify-between overflow-hidden cursor-pointer hover:-translate-y-1 reveal-init reveal-pop ${staggerClass}`}
       >
         {/* Top Badges Bar */}
         <div className="flex items-center justify-between mb-4 z-10">
@@ -116,7 +119,7 @@ export default function ProjectCard({ project, onOpenCaseStudy }) {
     <article
       onClick={handleCardClick}
       onMouseEnter={() => audioEngine.playHoverTone()}
-      className="group relative rounded-2xl bg-white border border-neutral-200/90 hover:border-black/30 shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.18)] transition-all duration-300 p-3 sm:p-3.5 flex flex-col justify-between overflow-hidden cursor-pointer hover:-translate-y-1"
+      className={`group relative rounded-2xl bg-white border border-neutral-200/90 hover:border-black/30 shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.18)] transition-all duration-300 p-3 sm:p-3.5 flex flex-col justify-between overflow-hidden cursor-pointer hover:-translate-y-1 reveal-init reveal-pop ${staggerClass}`}
     >
       {/* 1. Top Image Banner with Number Tag & External Link Icon */}
       <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden bg-black mb-3.5">

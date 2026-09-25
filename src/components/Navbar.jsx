@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Volume2, VolumeX, Menu, X, ArrowUpRight } from 'lucide-react';
 import { audioEngine } from '../utils/audioEngine';
 
-export default function Navbar({ onOpenResume, soundEnabled, setSoundEnabled }) {
+export default function Navbar({ onOpenResume, soundEnabled, setSoundEnabled, onNavigate }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -48,11 +48,15 @@ export default function Navbar({ onOpenResume, soundEnabled, setSoundEnabled }) 
   };
 
   const handleNavClick = (href) => {
-    audioEngine.playClickChime();
     setMobileMenuOpen(false);
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
+    if (onNavigate) {
+      onNavigate(href);
+    } else {
+      audioEngine.playClickChime();
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 

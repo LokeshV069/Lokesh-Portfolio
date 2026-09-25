@@ -19,7 +19,7 @@ export default function About() {
         <div className="relative bg-[#F4F4F6] text-neutral-900 p-8 sm:p-12 lg:p-14 xl:p-16 flex flex-col justify-between overflow-hidden border-b lg:border-b-0 lg:border-r border-black/10">
           
           {/* Top Row: Floating 3D Icosahedron & Profile Typography Side-by-Side */}
-          <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 lg:gap-8 relative z-10">
+          <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 lg:gap-8 relative z-10 reveal-init reveal-slide-left">
             
             {/* 3D Faceted Icosahedron Sphere — Dedicated Left Slot (Zero overlap with text) */}
             <div 
@@ -71,12 +71,12 @@ export default function About() {
           </div>
 
           {/* Middle: Dedicated Three.js 3D Objects Showcase (Isometric Cube & Torus with Contact Shadows) */}
-          <div className="w-full h-56 sm:h-64 md:h-72 my-6 sm:my-8 relative z-10 flex items-center justify-center">
+          <div className="w-full h-56 sm:h-64 md:h-72 my-6 sm:my-8 relative z-10 flex items-center justify-center reveal-init reveal-pop stagger-1">
             <AboutObjectsScene />
           </div>
 
           {/* Bottom: Two Light Studio Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-10 pt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-10 pt-2 reveal-init reveal-slide-up stagger-2">
             
             {/* Card 1: DISCIPLINE */}
             <div className="p-4 sm:p-5 rounded-2xl bg-[#EAEAEB] hover:bg-[#E2E2E4] border border-black/10 transition-all shadow-sm space-y-2 group">
@@ -122,7 +122,7 @@ export default function About() {
           </div>
 
           {/* Top: Bio Narrative Paragraphs */}
-          <div className="relative z-10 space-y-5 text-sm sm:text-[15px] lg:text-base text-neutral-300 leading-relaxed font-sans max-w-xl">
+          <div className="relative z-10 space-y-5 text-sm sm:text-[15px] lg:text-base text-neutral-300 leading-relaxed font-sans max-w-xl reveal-init reveal-slide-right">
             <p>
               I am a <strong className="text-white font-semibold">Computer Science and Design</strong> engineer focused on building interactive experiences across XR, AI, automation and modern web technologies.
             </p>
@@ -135,7 +135,7 @@ export default function About() {
           </div>
 
           {/* Middle: Academic Foundation Card */}
-          <div className="my-6 sm:my-8 p-5 sm:p-6 rounded-2xl bg-[#0f0f12] border border-white/10 hover:border-white/20 transition-all shadow-xl space-y-2 backdrop-blur-sm max-w-xl relative z-10">
+          <div className="my-6 sm:my-8 p-5 sm:p-6 rounded-2xl bg-[#0f0f12] border border-white/10 hover:border-white/20 transition-all shadow-xl space-y-2 backdrop-blur-sm max-w-xl relative z-10 reveal-init reveal-scale stagger-1">
             <div className="flex items-center justify-between gap-4">
               <span className="font-mono text-[10px] tracking-widest text-neutral-500 uppercase">
                 ACADEMIC FOUNDATION
@@ -153,7 +153,7 @@ export default function About() {
           </div>
 
           {/* Bottom: Two Dark Glass Cards (Horizontally Aligned with Left Bottom Cards) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-10 pt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-10 pt-2 reveal-init reveal-slide-up stagger-2">
             
             {/* Card 3: FOCUS */}
             <div className="p-4 sm:p-5 rounded-2xl bg-[#0f0f12] hover:bg-neutral-900 border border-white/10 hover:border-white/20 transition-all shadow-lg space-y-2 group">
