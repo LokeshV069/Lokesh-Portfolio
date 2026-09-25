@@ -192,7 +192,7 @@ export default function ResumeModal({ isOpen, onClose }) {
                 Interactive spatial computing application for hand-gesture-based manipulation of 3D virtual objects utilizing 6DoF skeletal landmarks and physics triggers in Unity.
               </p>
               <div className="font-mono text-[10px] text-accent-cyan pt-1">
-                Stack: Unity, C#, OpenXR, Hand Tracking, 3D Interaction
+                Stack: Unity, OpenXR, Hand Tracking, 3D Interaction
               </div>
             </div>
 
@@ -205,7 +205,7 @@ export default function ResumeModal({ isOpen, onClose }) {
                 Ground-plane 3D product visualizer in real scale and interactive educational augmented reality tool for spatial molecular structure dissection.
               </p>
               <div className="font-mono text-[10px] text-accent-cyan pt-1">
-                Stack: Unity, Vuforia, C#, PBR Shading
+                Stack: Unity, Vuforia, PBR Shading
               </div>
             </div>
           </div>

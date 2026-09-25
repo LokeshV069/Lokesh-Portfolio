@@ -10,7 +10,7 @@ export const PROJECTS_DATA = [
     image: '/projects/proj_01_sneaker.jpg',
     shortDescription:
       'An interactive AR application that allows users to view and review products in 3D with real-world scale and interaction.',
-    techTags: ['Unity', 'Vuforia', 'AR', 'C#', 'UI/UX'],
+    techTags: ['Unity', 'Vuforia', 'AR', 'UI/UX'],
     keyCapability: 'Real-world 1:1 scale tracking & interactive 3D product inspection',
     accent: '#FFFFFF',
     fullCaseStudy: {
@@ -54,7 +54,7 @@ export const PROJECTS_DATA = [
     image: '/projects/proj_02_chemmaster.jpg',
     shortDescription:
       'An educational AR app to visualize and interact with 3D chemical structures for better learning.',
-    techTags: ['Unity', 'AR Foundation', 'C#', 'Education'],
+    techTags: ['Unity', 'AR Foundation', 'Education'],
     keyCapability: 'Interactive 3D molecular lattice manipulation and bond physics',
     accent: '#FFFFFF',
     fullCaseStudy: {
@@ -98,7 +98,7 @@ export const PROJECTS_DATA = [
     image: '/projects/proj_03_handgesture.jpg',
     shortDescription:
       'A gesture-based XR application enabling real-time 3D object manipulation using hand gestures.',
-    techTags: ['Unity', 'XR', 'Hand Tracking', 'C#'],
+    techTags: ['Unity', 'XR', 'Hand Tracking'],
     keyCapability: '6DoF real-time skeletal hand landmark tracking and physics manipulation',
     accent: '#FFFFFF',
     fullCaseStudy: {
@@ -132,46 +132,46 @@ export const PROJECTS_DATA = [
     }
   },
   {
-    id: 'arvista',
+    id: 'ai-research-assistant',
     number: '04',
-    title: 'ARVISTA',
-    category: 'XR / AR',
-    filterCategory: 'AR / VR / XR',
-    year: '2025',
-    status: 'Virtual Tourism System',
-    image: '/projects/proj_04_arvista.jpg',
+    title: 'AI Research Assistant',
+    category: 'AI / RAG',
+    filterCategory: 'AI / LLM',
+    year: '2026',
+    status: 'RAG Intelligence System',
+    image: '/projects/proj_04_airesearch.jpg',
     shortDescription:
-      'An AR-based virtual tourism experience showcasing cultural and historical places with immersive 3D models.',
-    techTags: ['Unity', 'Vuforia', 'AR', 'Tourism', 'UI/UX'],
-    keyCapability: 'Geospatial heritage architectural projection and interactive storytelling',
+      'A RAG-based AI application to upload research papers, extract insights, answer questions, and generate summaries with source citations.',
+    techTags: ['Streamlit', 'LangChain', 'Ollama', 'RAG', 'LLM'],
+    keyCapability: 'Local document embeddings, vector search, and cited synthesis',
     accent: '#FFFFFF',
     fullCaseStudy: {
       overview: {
         problem:
-          'Cultural heritage sites and ancient temples suffer from limited physical access, geographic barriers, and lack of engaging historical context for modern explorers.',
+          'Navigating lengthy academic papers and technical documentation is time-consuming, prone to hallucination in traditional LLMs, and lacks traceable source citations.',
         goal:
-          'Build an immersive augmented reality virtual tourism portal that places detailed architectural monuments into any environment with rich historical storytelling.',
+          'Construct an end-to-end local RAG research companion that ingests dense scientific PDFs, extracts core insights, and provides cited, verifiable answers without data leaving the machine.',
         solution:
-          'Developed ARVISTA using Unity and Vuforia, combining photogrammetric architectural scans with floating spatial cards detailing history, architecture, and legends.'
+          'Built an interactive Streamlit application powered by LangChain chunking pipelines, ChromaDB vector indexing, and local Ollama inference models.'
       },
       architecture: [
-        { step: '01', node: 'HERITAGE SCAN PIPELINE', detail: 'Processes detailed photogrammetry models of historic monuments' },
-        { step: '02', node: 'SPATIAL PORTAL', detail: 'Anchors lifelike architectural structures onto tabletop or open terrain' },
-        { step: '03', node: 'STORYTELLING CARDS', detail: 'Delivers multi-layer audio and textual historical dossiers' },
-        { step: '04', node: 'HOTSPOT EXPLORER', detail: 'Allows visitors to zoom into carved pillars, sanctums, and murals' }
+        { step: '01', node: 'DOCUMENT INGESTION', detail: 'Parses complex multi-column academic PDF layouts and mathematical notations' },
+        { step: '02', node: 'SEMANTIC CHUNKING', detail: 'Splits text into overlapping semantic passages with recursive character splitters' },
+        { step: '03', node: 'VECTOR EMBEDDING', detail: 'Embeds chunks into ChromaDB vector store using local Nomic/BGE embeddings' },
+        { step: '04', node: 'GROUNDED SYNTHESIS', detail: 'Retrieves top-k context passages and feeds prompt with strict source citation rules' }
       ],
       features: [
-        { title: 'Monument Scale Adjustment', desc: 'Explore monuments as tabletop miniatures or scale up to full real-world proportions.' },
-        { title: 'Cultural Telemetry Dossier', desc: 'Floating glass UI panels provide deep architectural and archaeological details.' },
-        { title: 'Virtual Time Travel', desc: 'Toggle between current ruined states and reconstructed historical golden-age models.' }
+        { title: 'One-Click Prompt Pills', desc: 'Instant extraction for Summarize, Key Insights, Methodology, Results, and Limitations.' },
+        { title: 'Traceable Source Citations', desc: 'Every answer references exact page numbers, section headers, and quoted text snippets.' },
+        { title: '100% Local & Private', desc: 'Powered by Ollama (Llama 3 / Mistral) with zero external API calls or private document leaks.' }
       ],
       process: [
-        { phase: '01', name: 'FIELD RESEARCH', desc: 'Studied classical South Indian and temple architectures and motifs.' },
-        { phase: '02', name: 'ASSET OPTIMIZATION', desc: 'Baked high-poly scans into LOD models with normal maps for mobile AR.' },
-        { phase: '03', name: 'AR EXPERIENCE', desc: 'Programmed spatial audio tours and guided interactive camera tours.' }
+        { phase: '01', name: 'PIPELINE DESIGN', desc: 'Evaluated chunking strategies to preserve context across multi-page research tables and formulas.' },
+        { phase: '02', name: 'RAG GROUNDING', desc: 'Engineered strict system prompts preventing hallucination and enforcing citation anchors.' },
+        { phase: '03', name: 'UI/UX IN STREAMLIT', desc: 'Designed high-contrast dark dashboard with file uploader and interactive query console.' }
       ],
-      result: 'Showcased at institutional tech expos with over 500+ active virtual visitors praising the immersion.',
-      learnings: 'Atmospheric ambient lighting matched to the user’s room brings photogrammetric heritage models to life.',
+      result: 'Accelerates literature review workflows from hours to seconds with verifiable grounded accuracy.',
+      learnings: 'Optimal chunk size and semantic overlap are essential to ensure citations remain contextually coherent.',
       links: { github: 'https://github.com/lokeshv-dev', demo: null }
     }
   },

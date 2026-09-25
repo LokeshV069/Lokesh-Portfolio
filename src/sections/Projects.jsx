@@ -28,7 +28,7 @@ export default function Projects({ onOpenCaseStudy }) {
       if (activeFilter === 'AI / LLM') {
         return (
           proj.filterCategory === 'AI / LLM' ||
-          proj.techTags.some((t) => ['Gemini', 'AI Agents', 'n8n', 'Python'].includes(t))
+          proj.techTags.some((t) => ['Gemini', 'AI Agents', 'n8n', 'Python', 'LangChain', 'Ollama', 'RAG', 'LLM', 'Streamlit'].includes(t))
         );
       }
       if (activeFilter === 'WEB DEVELOPMENT') {
@@ -139,10 +139,7 @@ export default function Projects({ onOpenCaseStudy }) {
               <span>01 PROJECTS</span>
             </div>
             <div className="pl-6 text-neutral-400 hover:text-black transition-colors cursor-pointer">
-              <span>02 EXPERIENCE</span>
-            </div>
-            <div className="pl-6 text-neutral-400 hover:text-black transition-colors cursor-pointer">
-              <span>03 ACHIEVEMENTS</span>
+              <span>02 ACHIEVEMENTS</span>
             </div>
           </div>
 
