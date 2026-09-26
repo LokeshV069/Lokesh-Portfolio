@@ -82,7 +82,16 @@ export default function ResumeModal({ isOpen, onClose }) {
               </p>
             </div>
             <div className="font-mono text-xs text-neutral-400 space-y-1 sm:text-right">
-              <div>lokesh.valmeeki@gmail.com</div>
+              <div>
+                <a
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=lokesh.valmeeki@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  lokesh.valmeeki@gmail.com
+                </a>
+              </div>
               <div>+91 88380 47271</div>
               <div>Coimbatore, Tamil Nadu, India</div>
               <div>github.com/LokeshV069</div>

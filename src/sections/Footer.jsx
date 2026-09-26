@@ -93,7 +93,9 @@ export default function Footer({ onOpenResume, onNavigate }) {
               </a>
               <span className="text-neutral-700">•</span>
               <a
-                href="mailto:lokesh.valmeeki@gmail.com"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=lokesh.valmeeki@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-white transition-colors"
               >
                 EMAIL

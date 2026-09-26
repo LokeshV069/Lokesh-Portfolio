@@ -261,10 +261,12 @@ export default function Navbar({ onOpenResume, soundEnabled, setSoundEnabled, on
                 LINKEDIN
               </a>
               <a
-                href="mailto:lokesh.valmeeki@gmail.com"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=lokesh.valmeeki@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-white transition-colors"
               >
-                EMAIL
+                GMAIL
               </a>
             </div>
           </div>

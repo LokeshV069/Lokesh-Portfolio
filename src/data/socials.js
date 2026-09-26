@@ -26,7 +26,7 @@ export const SOCIAL_LINKS = [
   {
     name: 'Email',
     label: 'EM',
-    url: 'mailto:lokesh.valmeeki@gmail.com',
+    url: 'https://mail.google.com/mail/?view=cm&fs=1&to=lokesh.valmeeki@gmail.com',
     handle: 'lokesh.valmeeki@gmail.com'
   }
 ];
