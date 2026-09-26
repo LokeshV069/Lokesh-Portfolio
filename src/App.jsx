@@ -18,7 +18,14 @@ import { audioEngine } from './utils/audioEngine';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [soundEnabled, setSoundEnabled] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(() => {
+    try {
+      const saved = localStorage.getItem('spatial_audio_enabled');
+      return saved !== null ? saved === 'true' : true; // Default turned ON
+    } catch {
+      return true;
+    }
+  });
   const [selectedProject, setSelectedProject] = useState(null);
   const [resumeOpen, setResumeOpen] = useState(false);
 
